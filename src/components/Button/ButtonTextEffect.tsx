@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiCopy } from "react-icons/fi";
-import ButtonPrimary from './Button';
 
 const ButtonTextEffect: React.FC = () => {
   const [copied, setCopied] = useState(false);
@@ -14,9 +13,15 @@ const ButtonTextEffect: React.FC = () => {
   };
 
   return (
-    <ButtonPrimary onClick={handleClick} className="inline-flex items-center">
+    <motion.button
+      onClick={handleClick}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98, transition: { type: 'spring', stiffness: 400, damping: 10 } }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      className="inline-flex items-center justify-center bg-gradient-to-b from-black to-gray-800 text-white text-sm rounded-lg px-3 py-2 hover:opacity-80 cursor-pointer"
+    >
       {/* Copy icon */}
-      <FiCopy className="h-5 w-5 mr-0.5 flex-none" />
+      <FiCopy className="h-5 w-5 mr-2 flex-none" />
 
       {/* Animated text */}
       <div className="relative overflow-hidden h-6 min-w-[80px]">
@@ -46,7 +51,7 @@ const ButtonTextEffect: React.FC = () => {
           )}
         </AnimatePresence>
       </div>
-    </ButtonPrimary>
+    </motion.button>
   );
 };
 
