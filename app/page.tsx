@@ -5,7 +5,7 @@ import Button from "../src/components/Button/Button";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-8 gap-30 sm:p-20 font-[family-name:var(--font-inter-sans)]">
+    <div className="flex flex-col items-center justify-center min-h-screen p-8 gap-12 sm:p-20 font-[family-name:var(--font-inter-sans)]">
       <div className="flex items-center justify-center gap-8">
         <AvatarTooltip
           variant="image"
@@ -25,6 +25,8 @@ export default function Home() {
         </Button>     
 
         <ButtonTextEffect />
+
+        <Button variant="delete" deleteLabel="Delete" deletedLabel="Deleted" />
       </div>
     </div>
   );
