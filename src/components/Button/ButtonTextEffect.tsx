@@ -7,7 +7,7 @@ const ButtonTextEffect: React.FC = () => {
   const [copied, setCopied] = useState(false);
 
   const handleClick = () => {
-    // Optional: write to clipboard here if desired
+    // optional: write to clipboard here if desired
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -21,7 +21,7 @@ const ButtonTextEffect: React.FC = () => {
       className="inline-flex items-center justify-center bg-gradient-to-b from-black to-gray-800 text-white text-sm rounded-lg px-3 py-2 hover:opacity-80 cursor-pointer"
     >
       {/* Copy icon */}
-      <FiCopy className="h-5 w-5 mr-2 flex-none" />
+      <FiCopy className="h-5 w-5 mr-1 flex-none" />
 
       {/* Animated text */}
       <div className="relative overflow-hidden h-6 min-w-[80px]">

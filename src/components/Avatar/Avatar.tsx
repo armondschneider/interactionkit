@@ -1,3 +1,5 @@
+// plain avatar photo or initials component 
+// when importing component into other page, use variant prop to choose between image or initials
 "use client";
 import React from "react";
 
