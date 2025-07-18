@@ -2,6 +2,9 @@
 import ButtonTextEffect from "../src/components/Button/ButtonTextEffect";
 import AvatarTooltip from "../src/components/Avatar/AvatarTooltip";
 import Button from "../src/components/Button/Button";
+import SendButton from "../src/components/Button/SendButton";
+import TextInput from "../src/components/Chat/TextInput";
+import Message from "../src/components/Chat/Message";
 
 export default function Home() {
   return (
@@ -27,6 +30,17 @@ export default function Home() {
         <ButtonTextEffect />
 
         <Button variant="delete" deleteLabel="Delete" deletedLabel="Deleted" />
+
+        <SendButton />
+        <SendButton variant="disabled" />
+      </div>
+
+      <div className="flex items-center justify-center gap-8">
+        <TextInput
+        placeholder="Type your message here..."
+        />
+
+        <Message />
       </div>
     </div>
   );
