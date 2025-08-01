@@ -73,6 +73,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <motion.button
       {...props}
+      onClick={onClick}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98, transition: { type: 'spring', stiffness: 400, damping: 10 } }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
