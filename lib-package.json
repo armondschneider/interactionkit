@@ -1,0 +1,23 @@
+{
+  "name": "@armondschneider/interactionkit",
+  "version": "1.0.0",
+  "description": "Beautiful React interaction components with smooth animations inspired by iOS design",
+  "type": "module",
+  "main": "index.js",
+  "module": "index.esm.js",
+  "types": "index.d.ts",
+  "files": ["*"],
+  "keywords": ["react", "components", "animation", "ios", "ui", "framer-motion"],
+  "author": "Armond Schneider",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/armondschneider/interactionkit.git"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0",
+    "framer-motion": ">=6.0.0",
+    "hugeicons-react": ">=0.3.0"
+  }
+}

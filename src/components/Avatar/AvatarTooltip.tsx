@@ -8,6 +8,9 @@ interface AvatarTooltipProps {
   src?: string;
   initials?: string;
   alt?: string;
+  stroke?: boolean;
+  strokeWidth?: number;
+  strokeColor?: string;
 }
 
 const AvatarTooltip: React.FC<AvatarTooltipProps> = ({
@@ -15,6 +18,9 @@ const AvatarTooltip: React.FC<AvatarTooltipProps> = ({
   src,
   initials = "--",
   alt = "Profile avatar",
+  stroke = false,
+  strokeWidth = 2,
+  strokeColor = "#3b82f6"
 }) => {
   const [hovered, setHovered] = useState(false);
 
@@ -30,6 +36,9 @@ const AvatarTooltip: React.FC<AvatarTooltipProps> = ({
           alt={alt}
           initials={initials}
           variant={variant}
+          stroke={stroke}
+          strokeWidth={strokeWidth}
+          strokeColor={strokeColor}
         />
         <AnimatePresence>
           {hovered && (

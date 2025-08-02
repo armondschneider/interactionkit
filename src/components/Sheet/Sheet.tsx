@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createPortal } from 'react-dom';
+import { Cancel01Icon } from 'hugeicons-react';
 
 interface SheetProps {
   children: React.ReactNode;
@@ -11,6 +12,7 @@ interface SheetProps {
   position?: 'bottom' | 'top' | 'left' | 'right';
   size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
   showHandle?: boolean;
+  showCloseButton?: boolean;
   backdrop?: boolean;
   className?: string;
 }
@@ -22,6 +24,7 @@ const Sheet = ({
   position = 'bottom',
   size = 'md',
   showHandle = true,
+  showCloseButton = true,
   backdrop = true,
   className = ''
 }: SheetProps) => {
@@ -126,23 +129,15 @@ const Sheet = ({
             }}
           >
             {/* Close Button - Absolute Top Right */}
-            <button
-              onClick={onClose}
-              className="absolute top-3 right-3 z-10 p-1 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
-              aria-label="Close"
-            >
-              <svg 
-                className="w-4 h-4 text-gray-600" 
-                fill="none" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth="2" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
+            {showCloseButton && (
+              <button
+                onClick={onClose}
+                className="absolute top-3 right-3 z-10 p-1 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                aria-label="Close"
               >
-                <path d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+                <Cancel01Icon className="w-4 h-4 text-gray-600" />
+              </button>
+            )}
 
             {/* Handle */}
             {showHandle && (position === 'bottom' || position === 'top') && (

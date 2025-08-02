@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { motion, HTMLMotionProps, AnimatePresence } from 'framer-motion';
-import { FiTrash2 } from 'react-icons/fi';
+import { Delete01Icon } from 'hugeicons-react';
 
 interface ButtonProps extends Omit<HTMLMotionProps<'button'>, 'children'> {
   children?: React.ReactNode;
@@ -38,7 +38,7 @@ const Button: React.FC<ButtonProps> = ({
           deleted ? 'bg-red-700 hover:bg-red-600' : 'bg-red-500 hover:bg-red-400'
         } ${className}`}
       >
-        <FiTrash2 className="h-4 w-4 mr-1.5 flex-none" />
+        <Delete01Icon className="h-4 w-4 mr-1.5 flex-none" />
         <div className="relative overflow-hidden h-5 min-w-[60px]">
           <AnimatePresence initial={false}>
             {!deleted ? (

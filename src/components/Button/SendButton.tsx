@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { motion, HTMLMotionProps } from 'framer-motion';
-import { FiArrowUp } from 'react-icons/fi';
+import { ArrowUp01Icon } from 'hugeicons-react';
 
 interface SendButtonProps extends Omit<HTMLMotionProps<'button'>, 'ref'> {
   variant?: 'active' | 'disabled';
@@ -22,7 +22,7 @@ const SendButton: React.FC<SendButtonProps> = ({
     transition={{ type: 'spring', stiffness: 200, damping: 10 }}
     className={`inline-flex flex-none items-center justify-center w-8 h-8  rounded-full transition ${variant === 'active' ? 'bg-gradient-to-b from-black to-gray-800 text-white hover:opacity-90 cursor-pointer' : 'bg-gray-400 text-gray-600 cursor-not-allowed'} ${className}`}
   >
-    <FiArrowUp className="h-5 w-5" />
+    <ArrowUp01Icon className="h-5 w-5" />
   </motion.button>
 );
 
