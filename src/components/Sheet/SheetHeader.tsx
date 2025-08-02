@@ -1,4 +1,5 @@
 "use client";
+import { Cancel01Icon } from 'hugeicons-react';
 
 interface SheetHeaderProps {
   title?: string;
@@ -35,17 +36,7 @@ const SheetHeader = ({
           className="absolute top-4 right-4 p-1 rounded-full hover:bg-gray-100 transition-colors"
           aria-label="Close"
         >
-          <svg 
-            className="w-5 h-5 text-gray-500" 
-            fill="none" 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            strokeWidth="2" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
-          >
-            <path d="M6 18L18 6M6 6l12 12" />
-          </svg>
+          <Cancel01Icon className="w-5 h-5 text-gray-500" />
         </button>
       )}
     </div>

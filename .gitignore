@@ -20,6 +20,9 @@
 # production
 /build
 
+# npm package build output
+/dist
+
 # misc
 .DS_Store
 *.pem
@@ -39,3 +42,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# package testing
+test-package.js

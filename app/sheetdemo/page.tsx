@@ -35,11 +35,13 @@ export default function SheetDemoPage() {
           onClose={() => setIsBottomSheetOpen(false)}
           position="bottom"
           size="md"
+          showCloseButton={false}
         >
           <SheetHeader 
             title="Bottom Drawer" 
-            description="This is a bottom sheet drawer, just like iOS. Swipe down or tap the handle to close."
-            showCloseButton={false}
+            description="This is a bottom sheet drawer, just like iOS!"
+            onClose={() => setIsBottomSheetOpen(false)}
+            showCloseButton={true}
           />
           <SheetContent>
             <div className="space-y-6">
