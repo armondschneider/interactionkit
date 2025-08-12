@@ -1,13 +1,16 @@
 'use client';
 import { useState } from "react";
 import ButtonTextEffect from "../src/components/Button/ButtonTextEffect";
-import AvatarTooltip from "../src/components/Avatar/AvatarTooltip";
 import Button from "../src/components/Button/Button";
 import SendButton from "../src/components/Button/SendButton";
 import TextInput from "../src/components/Chat/TextInput";
 import Message from "../src/components/Chat/Message";
 import ImageExpand from "../src/components/Imgs/ImageExpand";
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "../src/components/Sheet";
+import TooltipDropdown from "../src/components/Tooltip/TooltipDropdown";
+import HoverTooltip from "../src/components/Tooltip/HoverTooltip";
+import Avatar from "../src/components/Avatar/Avatar";
+import { FileEditIcon, HeadphonesIcon, Message01Icon } from 'hugeicons-react';
 
 const sampleImages = [
   {
@@ -26,27 +29,53 @@ export default function Home() {
   const [isLeftSheetOpen, setIsLeftSheetOpen] = useState(false);
   const [isRightSheetOpen, setIsRightSheetOpen] = useState(false);
 
+  const helpItems = [
+    {
+      icon: FileEditIcon,
+      label: 'Documentation',
+      onClick: () => alert('Opening documentation')
+    },
+    {
+      icon: HeadphonesIcon,
+      label: 'Support',
+      onClick: () => alert('Opening support')
+    },
+    {
+      icon: Message01Icon,
+      label: 'Contact us',
+      onClick: () => alert('Opening contact')
+    }
+  ];
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-8 gap-12 sm:p-20 font-[family-name:var(--font-inter-sans)]">
       <div className="flex items-center justify-center gap-8">
-        <AvatarTooltip
-          variant="image"
-          src="https://images.pexels.com/photos/8825559/pexels-photo-8825559.jpeg"
-          alt="Profile avatar"
-        />
-        <AvatarTooltip
-          variant="initials"
-          initials="AS"
-          alt="Profile initials avatar"
-        />
+        <HoverTooltip content="Profile avatar - Account created August 2019" position="bottom">
+          <Avatar
+            variant="image"
+            src="https://images.pexels.com/photos/8825559/pexels-photo-8825559.jpeg"
+            alt="Profile avatar"
+          />
+        </HoverTooltip>
+        <HoverTooltip content="Initials avatar - Armond Schneider" position="bottom">
+          <Avatar
+            variant="initials"
+            initials="AS"
+            alt="Profile initials avatar"
+          />
+        </HoverTooltip>
       </div>
 
       <div className="flex items-center justify-center gap-8">
-        <Button>
-          Button
-        </Button>     
+        <HoverTooltip content="Click me!" position="top">
+          <Button>
+            Button
+          </Button>     
+        </HoverTooltip>
 
-        <ButtonTextEffect />
+        <HoverTooltip content="Animated button effect" position="top">
+          <ButtonTextEffect />
+        </HoverTooltip>
 
         <Button variant="delete" deleteLabel="Delete" deletedLabel="Deleted" />
 
@@ -70,33 +99,7 @@ export default function Home() {
         >
           Open Bottom Sheet
         </SheetTrigger>
-
-        <SheetTrigger 
-          onClick={() => setIsTopSheetOpen(true)}
-          className="bg-green-500 text-white hover:bg-green-600"
-        >
-          Open Top Sheet
-        </SheetTrigger>
-
-        <SheetTrigger 
-          onClick={() => setIsLeftSheetOpen(true)}
-          className="bg-purple-500 text-white hover:bg-purple-600"
-        >
-          Open Left Sheet
-        </SheetTrigger>
-
-        <SheetTrigger 
-          onClick={() => setIsRightSheetOpen(true)}
-          className="bg-orange-500 text-white hover:bg-orange-600"
-        >
-          Open Right Sheet
-        </SheetTrigger>
       </div>
-
-      <ImageExpand 
-        images={sampleImages}
-        className="mb-8"
-      />
 
       {/* Bottom Sheet */}
       <Sheet 
@@ -108,7 +111,6 @@ export default function Home() {
         <SheetHeader 
           title="Bottom Drawer" 
           description="This is a bottom sheet drawer, just like iOS!"
-          onClose={() => setIsBottomSheetOpen(false)}
         />
         <SheetContent>
           <div className="space-y-4">
@@ -120,100 +122,15 @@ export default function Home() {
               <button className="p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
                 Action 1
               </button>
-              <button className="p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
-                Action 2
-              </button>
             </div>
           </div>
         </SheetContent>
       </Sheet>
 
-      {/* Top Sheet */}
-      <Sheet 
-        isOpen={isTopSheetOpen} 
-        onClose={() => setIsTopSheetOpen(false)}
-        position="top"
-        size="sm"
-      >
-        <SheetHeader 
-          title="Top Notification" 
-          onClose={() => setIsTopSheetOpen(false)}
-        />
-        <SheetContent>
-          <p className="text-gray-700">
-            This sheet slides down from the top - great for notifications or alerts!
-          </p>
-        </SheetContent>
-      </Sheet>
-
-      {/* Left Sheet */}
-      <Sheet 
-        isOpen={isLeftSheetOpen} 
-        onClose={() => setIsLeftSheetOpen(false)}
-        position="left"
-        size="md"
-      >
-        <SheetHeader 
-          title="Side Menu" 
-          onClose={() => setIsLeftSheetOpen(false)}
-        />
-        <SheetContent>
-          <div className="space-y-2">
-            <button className="w-full p-3 text-left hover:bg-gray-100 rounded-lg transition-colors">
-              🏠 Home
-            </button>
-            <button className="w-full p-3 text-left hover:bg-gray-100 rounded-lg transition-colors">
-              👤 Profile
-            </button>
-            <button className="w-full p-3 text-left hover:bg-gray-100 rounded-lg transition-colors">
-              ⚙️ Settings
-            </button>
-            <button className="w-full p-3 text-left hover:bg-gray-100 rounded-lg transition-colors">
-              📞 Contact
-            </button>
-          </div>
-        </SheetContent>
-      </Sheet>
-
-      {/* Right Sheet */}
-      <Sheet 
-        isOpen={isRightSheetOpen} 
-        onClose={() => setIsRightSheetOpen(false)}
-        position="right"
-        size="lg"
-      >
-        <SheetHeader 
-          title="Details Panel" 
-          description="Additional information and settings"
-          onClose={() => setIsRightSheetOpen(false)}
-        />
-        <SheetContent>
-          <div className="space-y-6">
-            <div>
-              <h3 className="font-semibold mb-2">User Information</h3>
-              <div className="space-y-2 text-sm text-gray-600">
-                <p>Name: John Doe</p>
-                <p>Email: john@example.com</p>
-                <p>Role: Administrator</p>
-              </div>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-2">Recent Activity</h3>
-              <div className="space-y-2 text-sm">
-                <div className="p-2 bg-gray-50 rounded">
-                  Updated profile picture
-                </div>
-                <div className="p-2 bg-gray-50 rounded">
-                  Changed password
-                </div>
-                <div className="p-2 bg-gray-50 rounded">
-                  Logged in from new device
-                </div>
-              </div>
-            </div>
-          </div>
-        </SheetContent>
-      </Sheet>
+      <div className="flex items-center gap-4">
+        <span className="text-gray-700">Need help?</span>
+        <TooltipDropdown items={helpItems} />
+      </div>
     </div>
   );
 }

@@ -68,9 +68,8 @@ const ImageExpand = ({
       <div 
         className="relative" 
         style={{ 
-          height: isExpanded ? '400px' : '200px',
-          width: isExpanded ? '800px' : '260px',
-          transition: 'all 0.5s ease-in-out'
+          height: '200px',
+          width: '260px'
         }}
       >
         <AnimatePresence>
@@ -84,7 +83,7 @@ const ImageExpand = ({
                 key={image.src}
                 className="absolute rounded-3xl overflow-hidden bg-white border-4 border-white cursor-pointer"
                 style={{
-                  zIndex: 20 + index,
+                  zIndex: isExpanded ? 50 + index : 20 + index,
                   width: dimensions.width,
                   height: dimensions.height,
                   left: '50%',

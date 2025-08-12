@@ -4,7 +4,6 @@ export { default as ButtonTextEffect } from './components/Button/ButtonTextEffec
 export { default as SendButton } from './components/Button/SendButton';
 
 export { default as Avatar } from './components/Avatar/Avatar';
-export { default as AvatarTooltip } from './components/Avatar/AvatarTooltip';
 
 export { default as Message } from './components/Chat/Message';
 export { default as TextInput } from './components/Chat/TextInput';
@@ -19,3 +18,6 @@ export {
   SheetHeader, 
   SheetTrigger 
 } from './components/Sheet';
+
+export { default as TooltipDropdown } from './components/Tooltip/TooltipDropdown';
+export { default as HoverTooltip } from './components/Tooltip/HoverTooltip';
