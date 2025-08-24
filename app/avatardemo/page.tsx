@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Avatar from '../../src/components/Avatar/Avatar';
-import AvatarTooltip from '../../src/components/Avatar/AvatarTooltip';
+import HoverTooltip from '../../src/components/Tooltip/HoverTooltip';
 
 export default function AvatarDemoPage() {
   const [editableAvatarSrc, setEditableAvatarSrc] = useState<string | undefined>(
