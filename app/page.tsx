@@ -1,68 +1,33 @@
-"use client";
-import Link from "next/link";
-import { useState } from "react";
-import { Copy01Icon } from "hugeicons-react";
+import ImageExpand from "../src/components/image/MultipleImageExpand";
+import Sheet from "../src/components/sheet/Sheet";
+import Link from 'next/link';
+import InteractionVideos from './mainsite/InteractionVideos';
 
 export default function Home() {
-  const [copied, setCopied] = useState(false);
-
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText("npm install interactionkit");
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error("Failed to copy text: ", err);
-    }
-  };
   return (
-    <>
-      {/* Import Roboto Mono font from Google Fonts */}
-      <link
-        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap"
-        rel="stylesheet"
-      />
-      <div className="min-h-screen flex items-center justify-center bg-neutral-900" style={{ fontFamily: 'Roboto Mono, monospace' }}>
-      <div
-        className="flex flex-col items-start justify-center mx-auto px-6 py-12"
-        style={{ maxWidth: 480 }}
-      >
-        <h1 className="font-mono text-lg text-white mb-4">interactionKit</h1>
-        <p className="font-mono text-sm text-neutral-400 mb-8">
-          A modern, accessible, and open-source collection of copy-and-paste
-          components for quickly building application UI with React.
-        </p>
-        <div className="flex items-center gap-4">
-          <button
-            onClick={copyToClipboard}
-            className="bg-neutral-800 text-white px-3 py-2 rounded-sm text-sm font-mono flex items-center gap-2 hover:bg-neutral-700 active:scale-99 transition-all duration-200 group cursor-pointer transform"
-          >
-            <span>npm install interactionkit</span>
-            <div className="relative w-4 h-4">
-              <Copy01Icon
-                size={16}
-                className={`absolute inset-0 transition-all duration-300 ${
-                  copied ? "opacity-0 scale-75" : "opacity-100 scale-100"
-                }`}
-              />
-              <svg
-                className={`absolute inset-0 w-4 h-4 transition-all duration-300 ${
-                  copied ? "opacity-100 scale-100" : "opacity-0 scale-75"
-                }`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <polyline points="20,6 9,17 4,12"></polyline>
-              </svg>
+    <main className="min-h-screen bg-white">
+      <div className="w-full max-w-screen-md mx-auto p-8 pt-16">
+        <section className="py-8">
+          <div className="w-full">
+            <h1 className="text-md font-medium">InteractionKit</h1>
+            <p className="text-sm mt-4 text-neutral-500 leading-relaxed">
+              A small collection of polished, copy-pasteable UI interactions (modals, sheets, image
+              expand, and more) built with React, Tailwind and Framer Motion. Use them as-is or
+              drop them into your projects.
+            </p>
+
+            <div className="mt-4 flex items-center justify-start gap-3 text-sm text-neutral-600">
+              <span>Created by <span className="font-medium">Armond Schneider</span></span>
+              <span aria-hidden>•</span>
+              <a href="https://x.com/armondme" className="underline text-neutral-500 hover:text-neutral-900 transition-colors" target="_blank" rel="noopener noreferrer">X</a>
+              <a href="https://github.com/armondschneider" className="underline text-neutral-500 hover:text-neutral-900 transition-colors" target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
-          </button>
-          <span className="font-mono text-sm text-neutral-400">
-            coming soon
-          </span>
+          </div>
+        </section>
+        <div className="mt-8">
+          <InteractionVideos />
         </div>
       </div>
-    </div>
-    </>
+    </main>
   );
 }

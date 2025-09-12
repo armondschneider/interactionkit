@@ -1,37 +1,39 @@
 # InteractionKit
 
-React components with smooth animations.
+A collection of UI interactions that often get overlooked. Copy and paste them into your projects.
 
-## Installation
+## About
 
-```bash
-npm install @armondschneider/interactionkit framer-motion hugeicons-react
-```
+This repo is for interactions that get overlooked — smooth animations, intuitive gestures, and polished micro-interactions that make interfaces feel alive. Each component is built to be copied and pasted directly into your project.
+
+## Tech Stack
+
+All components use:
+- **React** — Component framework
+- **Tailwind CSS** — Styling
+- **Framer Motion** — Animations
+- **Lucide Icons** — Icons (you can replace with other icon libraries)
+
+> **Note:** If you use a different icon library, just be aware you'll need to swap out the Lucide imports.
+
+## Components
+
+- **Sheet** — Bottom sheet with drag-to-close gesture
+- **ImageExpand** — Expandable image stack with smooth transforms
+- More coming soon...
 
 ## Usage
 
-```tsx
-import { Sheet, SheetContent, SheetHeader, Accordion } from '@armondschneider/interactionkit';
+1. Copy the component code from `src/components/`
+2. Paste into your project
+3. Make sure you have the dependencies installed:
 
-// Sheet drawer
-<Sheet isOpen={isOpen} onClose={() => setIsOpen(false)}>
-  <SheetHeader title="My Sheet" onClose={() => setIsOpen(false)} />
-  <SheetContent>Your content</SheetContent>
-</Sheet>
-
-// Animated button
-<Button>Click me</Button>
-
-// Expandable images
-<ImageExpand images={[{src: '/img.jpg', alt: 'Image'}]} />
-
-// Accordion
-<Accordion 
-  items={[
-    { id: '1', title: 'Question 1', content: 'Answer 1' },
-    { id: '2', title: 'Question 2', content: 'Answer 2' }
-  ]}
-/>
+```bash
+npm install framer-motion lucide-react
 ```
 
-Requires Tailwind CSS in your project.
+4. Ensure Tailwind CSS is configured in your project
+
+## License
+
+MIT
