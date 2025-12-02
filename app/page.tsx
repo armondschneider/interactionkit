@@ -1,5 +1,3 @@
-import ImageExpand from "../src/components/image/MultipleImageExpand";
-import Sheet from "../src/components/sheet/Sheet";
 import Link from 'next/link';
 import InteractionVideos from './mainsite/InteractionVideos';
 

@@ -17,12 +17,14 @@ export default function InteractionVideos({ videos }: Props = {}) {
     { src: '/videos/imageexpand.mp4', caption: 'Image expand' },
     { src: '/videos/imagemodal.mp4', caption: 'Modal pop-out' },
     { src: '/videos/dragdrop.mp4', caption: 'Drag & Drop' },
+    { src: '/videos/soundtoggle.mp4', caption: 'Sound Toggle' },
   ];
 
   const anchors = [
     '/demo/imageexpand#imageexpand',
     '/demo/imagemodal#image-modal',
     '/demo/dragdrop',
+    '/demo/sound',
   ];
 
   return (

@@ -16,19 +16,13 @@ export default function DemoSoundPage() {
           </Link>
         </header>
 
-        <div className="flex flex-col items-center gap-6">
-          <div className="flex items-center gap-3">
+        <div className="flex flex-col items-center">
+          <div className="flex items-center gap-2">
             <SoundToggle
               initialOn={on}
-              size={28}
               onToggle={(val) => setOn(val)}
             />
             <div className="text-sm text-neutral-600">Sound {on ? "On" : "Off"}</div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <SoundToggle size={20} onToggle={() => {}} />
-            <div className="text-sm text-neutral-600">Small</div>
           </div>
         </div>
       </div>
