@@ -9,8 +9,7 @@
     "lint": "next lint",
     "build:lib": "rollup -c",
     "build:lib:watch": "rollup -c --watch",
-    "prepare": "npm run build:lib",
-    "prepublish": "npm run build:lib && cp lib-package.json dist/package.json && cp README.md dist/",
+    "prepublishOnly": "npm run build:lib && cp lib-package.json dist/package.json && cp README.md dist/",
     "publish:lib": "cd dist && npm publish"
   },
   "dependencies": {
