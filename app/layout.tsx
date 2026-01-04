@@ -12,9 +12,33 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000";
+
 export const metadata: Metadata = {
   title: "Interaction Kit",
   description: "Copy-and-paste components React components.",
+  metadataBase: new URL(siteUrl),
+  openGraph: {
+    title: "Interaction Kit",
+    description: "Copy-and-paste components React components.",
+    url: siteUrl,
+    siteName: "Interaction Kit",
+    images: [
+      {
+        url: `${siteUrl}/app/og.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "Interaction Kit"
+      }
+    ],
+    type: 'website'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Interaction Kit',
+    description: 'Copy-and-paste components React components.',
+    images: [`${siteUrl}/app/og.jpg`]
+  }
 };
 
 export default function RootLayout({

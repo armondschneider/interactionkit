@@ -13,11 +13,13 @@ type Props = {
 };
 
 export default function InteractionVideos({ videos }: Props = {}) {
+  const imagestackPoster = `data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='640' height='360' viewBox='0 0 640 360'><defs><linearGradient id='g1' x1='0' x2='1'><stop offset='0' stop-color='#b6e3ff'/><stop offset='1' stop-color='#98f5ff'/></linearGradient><linearGradient id='g2' x1='0' x2='1'><stop offset='0' stop-color='#a7f3d0'/><stop offset='1' stop-color='#6ee7b7'/></linearGradient></defs><rect x='120' y='40' rx='16' width='400' height='140' fill='url(#g1)' /><rect x='140' y='70' rx='16' width='400' height='140' fill='url(#g2)' /></svg>`)}`;
+
   const defaults: VideoItem[] = videos || [
     { src: '/videos/imageexpand.mp4', caption: 'Image expand' },
     { src: '/videos/imagemodal.mp4', caption: 'Modal pop-out' },
     { src: '/videos/dragdrop.mp4', caption: 'Drag & Drop' },
-    { src: '/videos/soundtoggle.mp4', caption: 'Sound Toggle' },
+    { src: '/videos/soundtoggle.mp4', caption: 'Sound Toggle' }
   ];
 
   const anchors = [
@@ -25,6 +27,7 @@ export default function InteractionVideos({ videos }: Props = {}) {
     '/demo/imagemodal#image-modal',
     '/demo/dragdrop',
     '/demo/sound',
+    '/demo/imagestack',
   ];
 
   return (
