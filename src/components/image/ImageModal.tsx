@@ -67,9 +67,11 @@ export default function ImageModal({ src, alt = '', layoutId, className = '' }: 
         layoutId={id}
         type="button"
         onClick={() => setOpen(true)}
-        className={`relative w-full h-48 sm:h-56 md:h-64 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-neutral-100 ${className}`}
+        className={`relative w-full h-48 sm:h-56 md:h-64 rounded-lg overflow-hidden bg-neutral-100 hover:shadow-lg transition-shadow ${className}`}
         aria-label={`Open ${alt}`}
-        style={{ cursor: 'zoom-in' }}
+        style={{ cursor: 'pointer' }}
+        whileHover={{ scale: 1.02 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
         <Image 
           src={src} 
@@ -85,16 +87,16 @@ export default function ImageModal({ src, alt = '', layoutId, className = '' }: 
         {image && (
           <>
             <motion.div
-            key="backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="fixed inset-0 bg-black/40 z-[60] backdrop-blur-md"
-            onClick={onClose}
-          />
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="fixed inset-0 bg-black/40 z-[60] backdrop-blur-md cursor-pointer"
+              onClick={onClose}
+            />
 
-          <motion.div
+            <motion.div
             key="container"
             className="fixed inset-0 z-[70] flex items-center justify-center p-4 pointer-events-none"
             initial={{ opacity: 0 }}
@@ -113,10 +115,10 @@ export default function ImageModal({ src, alt = '', layoutId, className = '' }: 
                 perspective: 1200, 
                 willChange: "transform", 
                 touchAction: "none",
-                position: "fixed",
-                top: "50%",
-                left: "50%",
-                translate: "-50% -50%"
+                // Position and centering handled by the surrounding flex container.
+                width: 'min(900px, 92vw)',
+                aspectRatio: '16/9',
+                maxHeight: '90vh',
               }}
               dragConstraints={{ top: -90, left: -90, right: 90, bottom: 90 }}
               dragElastic={0.22}
@@ -128,33 +130,38 @@ export default function ImageModal({ src, alt = '', layoutId, className = '' }: 
                   const py = info.offset.y + info.velocity.y * 120;
                   animate(mvX, px, { type: "spring", stiffness: 500, damping: 36 });
                   animate(mvY, py, { type: "spring", stiffness: 500, damping: 36 });
-                  // short delay to allow the fling to be visible
-                  setTimeout(() => onClose(), 80);
+                  // allow the fling to be visible and then reset transforms before closing
+                  setTimeout(() => {
+                    // quickly reset transforms back to zero so the layout animation doesn't start from an offset value
+                    animate(mvX, 0, { duration: 0.12 });
+                    animate(mvY, 0, { duration: 0.12 });
+                    setTimeout(() => onClose(), 140);
+                  }, 200);
                 } else {
                   animate(mvX, 0, { type: "spring", stiffness: 160, damping: 22, velocity: info.velocity.x });
                   animate(mvY, 0, { type: "spring", stiffness: 160, damping: 22, velocity: info.velocity.y });
                 }
               }}
-              whileDrag={{ scale: 0.995 }}
-              initial={{ scale: 0.96, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.96, opacity: 0 }}
+              whileDrag={{ scale: 1.01 }}
+              initial={{ scale: 0.98, opacity: 0 }}
+              animate={{ scale: 1.02, opacity: 1 }}
+              exit={{ scale: 0.98, opacity: 0 }}
               transition={{ 
                 type: "spring", 
                 stiffness: 400, 
                 damping: 30,
                 opacity: { duration: 0.2 }
               }}
-              className="pointer-events-auto w-full max-w-[85vw] max-h-[48vh] rounded-lg overflow-hidden bg-white shadow-sm cursor-grab active:cursor-grabbing"
+              className="pointer-events-auto w-full max-w-[900px] max-h-[90vh] rounded-lg overflow-hidden bg-white shadow-sm cursor-grab active:cursor-grabbing"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative w-full h-[min(48vh,640px)] bg-neutral-100">
+              <div className="relative w-full h-full bg-neutral-100">
                 <Image
                   src={image.src}
                   alt={image.alt ?? ""}
                   fill
-                  sizes="(max-width: 640px) 90vw, 800px"
-                  className="object-cover min-h-full min-w-full bg-transparent select-none"
+                  sizes="(max-width: 640px) 90vw, 900px"
+                  className="object-cover min-h-full min-w-full bg-transparent select-none cursor-grab active:cursor-grabbing"
                   draggable={false}
                   onDragStart={(e) => e.preventDefault()}
                   priority

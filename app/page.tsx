@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import InteractionVideos from './mainsite/InteractionVideos';
+import { Analytics } from "@vercel/analytics/next"
 
 export default function Home() {
   return (

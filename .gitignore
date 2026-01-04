@@ -47,3 +47,4 @@ next-env.d.ts
 
 # package testing
 test-package.js
+.env*.local

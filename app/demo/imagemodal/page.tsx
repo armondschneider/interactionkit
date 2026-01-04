@@ -1,9 +1,13 @@
-"use client";
+import fs from 'fs';
+import path from 'path';
 
 import Link from 'next/link';
 import ImageModal from '../../../src/components/image/ImageModal';
+import CodeBlock from '../../../src/components/code/CodeBlock';
 
 export default function DemoPage() {
+  const imgModalPath = path.join(process.cwd(), 'src', 'components', 'image', 'ImageModal.tsx');
+  const imgModalSource = fs.readFileSync(imgModalPath, 'utf8');
   return (
     <main className="min-h-screen bg-white">
       <div className="w-full max-w-lg mx-auto px-6 py-16">
@@ -33,6 +37,7 @@ export default function DemoPage() {
           <p className="leading-relaxed text-neutral-700 mb-4">
             Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
           </p>
+          <CodeBlock code={imgModalSource} language="tsx" previewLines={12} />
         </article>
       </div>
     </main>
