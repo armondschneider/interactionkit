@@ -59,11 +59,8 @@ export default function ClickHoldButton({
       className={`relative px-3 py-1.5 rounded-full text-sm text-white bg-red-500 overflow-hidden cursor-pointer disabled:cursor-default ${className}`}
     >
       <motion.div
-        className="absolute inset-0 bg-red-600/50"
-        style={{ 
-          scaleX,
-          transformOrigin: "left"
-        }}
+        className="absolute inset-0 origin-left bg-red-600/50"
+        style={{ scaleX }}
       />
       <span className="relative z-10 flex items-center gap-2 justify-center">
         {status === "idle" && children}

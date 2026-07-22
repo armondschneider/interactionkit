@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useMemo, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
 
 type ImageType = {
   src: string;
@@ -14,95 +14,53 @@ type ImageStackProps = {
   className?: string;
 };
 
-// deterministic rotation (no Math.random() on every mount)
-const rotationForIndex = (index: number, expanded = false) => {
-  const base = ((index * 37) % 21) - 10; // -10..10
-  return expanded ? base * 1.6 : base * 0.8;
-};
-
 const expandedOffsets = [
-  { x: -120, y: -70 },
-  { x: 120, y: -70 },
-  { x: -100, y: 70 },
-  { x: 100, y: 70 },
+  { x: -96, y: -54 },
+  { x: 96, y: -54 },
+  { x: -78, y: 54 },
+  { x: 78, y: 54 },
 ];
 
-const MultipleImageExpand = ({ images, className = '' }: ImageStackProps) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+function rotationForIndex(index: number, expanded = false) {
+  const rotations = [-10, 7, -4, 11];
+  const base = rotations[index] ?? 0;
+  return expanded ? base * 1.2 : base * 0.7;
+}
 
-  // keep rotations stable across renders
+export default function MultipleImageExpand({ images, className = "" }: ImageStackProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
   const rotations = useMemo(
-    () => images.map((_, i) => ({
-      collapsed: rotationForIndex(i, false),
-      expanded: rotationForIndex(i, true),
-    })),
-    [images]
+    () => images.map((_, index) => ({ collapsed: rotationForIndex(index), expanded: rotationForIndex(index, true) })),
+    [images],
   );
 
-  const toggleExpand = () => setIsExpanded((s) => !s);
-
   return (
-    <div
-      className={`relative flex justify-center ${className}`}
-      onClick={() => {
-        if (isExpanded) setIsExpanded(false);
-      }}
-    >
-      {/* container provides a stable area for transforms; we use fixed card size and animate transforms only */}
-      <div className="relative" style={{ width: 560, height: 320 }} onClick={(e) => e.stopPropagation()}>
+    <div className={`relative flex justify-center ${className}`}>
+      <div className="relative h-[260px] w-[440px]">
         {images.map((image, index) => {
-          const zIndex = isExpanded ? 50 + index : 20 + index;
-          const rotate = isExpanded ? rotations[index].expanded : rotations[index].collapsed;
-          const offset = isExpanded ? expandedOffsets[index] ?? { x: 0, y: 0 } : { x: 0, y: index * 18 };
+          const offset = isExpanded ? expandedOffsets[index] ?? { x: 0, y: 0 } : { x: 0, y: index * 13 };
 
           return (
             <motion.button
               key={image.src}
-              layoutId={`image-${index}`}
-              onClick={() => {
-                if (!isExpanded) {
-                  toggleExpand();
-                } else {
-                  // second click when expanded collapses the stack
-                  setIsExpanded(false);
-                }
-              }}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  if (!isExpanded) toggleExpand(); else setIsExpanded(false);
-                }
-              }}
-              aria-pressed={isExpanded}
-              aria-label={`Toggle image stack ${index + 1}`}
               type="button"
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl overflow-hidden border-4 border-white shadow-lg bg-white p-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-300"
-              style={{
-                zIndex,
-                width: 240,
-                height: 160,
-                transformOrigin: 'center center',
-              }}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: 'spring', stiffness: 250, damping: 28 }}
-              // animate only transforms for smooth gpu-driven animations
+              aria-label={`${isExpanded ? "Collapse" : "Expand"} image stack`}
+              aria-pressed={isExpanded}
+              className="absolute left-1/2 top-1/2 h-[126px] w-[190px] origin-center -translate-x-1/2 -translate-y-1/2 cursor-pointer overflow-hidden rounded-xl border-[3px] border-white bg-white p-0 shadow-md outline-none focus-visible:ring-2 focus-visible:ring-neutral-300 dark:border-neutral-700 dark:bg-neutral-800 dark:focus-visible:ring-neutral-600"
+              initial={false}
               animate={{
                 x: offset.x,
                 y: offset.y,
-                rotate,
-                scale: isExpanded ? 1.03 : 1,
+                rotate: isExpanded ? rotations[index].expanded : rotations[index].collapsed,
+                scale: isExpanded ? 1.015 : 1,
+                zIndex: isExpanded ? 20 + index : 10 + index,
               }}
+              whileHover={{ scale: isExpanded ? 1.04 : 1.025 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 180, damping: 24, mass: 0.75 }}
+              onClick={() => setIsExpanded((value) => !value)}
             >
-              <div className="relative w-full h-full">
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  sizes="260px"
-                  className="object-cover"
-                  priority
-                />
-              </div>
+              <Image src={image.src} alt={image.alt} fill sizes="190px" className="object-cover" priority />
             </motion.button>
           );
         })}
@@ -110,5 +68,3 @@ const MultipleImageExpand = ({ images, className = '' }: ImageStackProps) => {
     </div>
   );
 }
-
-export default MultipleImageExpand;

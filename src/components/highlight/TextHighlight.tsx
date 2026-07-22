@@ -1,0 +1,77 @@
+"use client";
+
+import { AnimatePresence, motion } from "framer-motion";
+import { useId, useState, type ReactNode } from "react";
+
+type Props = {
+  children: ReactNode;
+  className?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+  previewClassName?: string;
+};
+
+export default function TextHighlight({
+  children,
+  className = "",
+  imageSrc,
+  imageAlt = "",
+  previewClassName = "",
+}: Props) {
+  const maskId = useId().replace(/:/g, "");
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <span
+      className={`relative inline-block whitespace-nowrap ${imageSrc ? "cursor-pointer" : ""} ${className}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute -inset-x-1 -inset-y-1 h-[calc(100%+0.5rem)] w-[calc(100%+0.5rem)]"
+        preserveAspectRatio="none"
+        viewBox="0 0 137 25"
+      >
+        <motion.path
+          d="M0.823 22.9875C2.12222 24.6601 14.0523 22.9134 20.6665 22.8763L128.906 22.7028C130.406 22.7028 131.393 21.5171 131.665 20.5217C132.23 17.1425 132.726 15.8892 133.13 13.4661C133.535 11.043 133.968 8.40162 134.203 5.66436C134.217 5.49971 134.26 5.06964 134.295 4.58343C134.381 3.39728 133.639 2.52232 132.734 2.4758C116.977 1.66595 41.6503 1.76509 35.412 1.80003L15.5684 1.91116C11.8498 1.93197 5.72888 1.36927 3.82068 2.63216C2.72881 3.35479 2.59275 6.24212 2.32068 7.23742C1.75573 9.30088 1.72532 10.0775 1.32068 12.5006C0.916036 14.9237 1.31844 14.4746 0.820683 17.1061C0.438628 19.1258 -0.67937 21.0533 0.823 22.9875Z"
+          className={isHovered ? "fill-lime-300" : "fill-lime-200"}
+        />
+        <mask id={maskId} height="24" maskUnits="userSpaceOnUse" width="7" x="127" y="0">
+          <path
+            d="M127.344 9.39259L128.769 4.51684C129.117 3.32662 129.861 2.41258 130.788 2.03755C132.066 1.11494 136.73 3.72151 136.815 6.80107L134.862 20.0174C134.547 22.1468 133.13 23.6842 131.481 23.6842C130.537 23.6842 129.745 22.7462 135.815 6.80107L132.862 20.0174C132.547 22.1468 131.13 23.6842 129.481 23.6842C128.537 23.6842 127.745 22.7462 127.646 21.5107L126.973 13.0932C126.873 11.8384 127 10.5705 127.344 9.39259Z"
+            fill="white"
+          />
+        </mask>
+        <motion.path
+          d="M0.823 22.9875C2.12222 24.6601 14.0523 22.9134 20.6665 22.8763L128.906 22.7028C130.406 22.7028 131.393 21.5171 131.665 20.5217C132.23 17.1425 132.726 15.8892 133.13 13.4661C133.535 11.043 133.968 8.40162 134.203 5.66436C134.217 5.49971 134.26 5.06964 134.295 4.58343C134.381 3.39728 133.639 2.52232 132.734 2.4758C116.977 1.66595 41.6503 1.76509 35.412 1.80003L15.5684 1.91116C11.8498 1.93197 5.72888 1.36927 3.82068 2.63216C2.72881 3.35479 2.59275 6.24212 2.32068 7.23742C1.75573 9.30088 1.72532 10.0775 1.32068 12.5006C0.916036 14.9237 1.31844 14.4746 0.820683 17.1061C0.438628 19.1258 -0.67937 21.0533 0.823 22.9875Z"
+          className={isHovered ? "fill-lime-400" : "fill-lime-300"}
+          mask={`url(#${maskId})`}
+        />
+      </svg>
+      <span className="relative">{children}</span>
+      <AnimatePresence>
+        {imageSrc && isHovered && (
+          <motion.span
+            className={`pointer-events-none absolute left-1/2 top-full z-20 block w-56 -translate-x-1/2 pt-3 sm:w-64 ${previewClassName}`}
+            initial={{ opacity: 0, scale: 0.94, y: 5, filter: "blur(8px)" }}
+            animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0 }}
+            transition={{
+              scale: { type: "spring", stiffness: 280, damping: 24, mass: 0.7 },
+              y: { type: "spring", stiffness: 280, damping: 26, mass: 0.7 },
+              filter: { duration: 0.2, ease: "easeOut" },
+              opacity: { duration: 0.18, ease: "easeOut" },
+            }}
+          >
+            <img
+              src={imageSrc}
+              alt={imageAlt}
+              className="block aspect-[4/3] w-full rounded-[1.35rem] border-[7px] border-white object-cover shadow-[0_18px_38px_rgba(0,0,0,0.16)] dark:border-neutral-800"
+            />
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </span>
+  );
+}
