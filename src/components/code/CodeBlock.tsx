@@ -93,10 +93,10 @@ export default function CodeBlock({
   };
 
   return (
-    <div className={`relative font-sans ${className}`} style={{ fontSize: '10px' }}>
+    <div className={`relative font-sans text-[10px] ${className}`}>
       {title && (
-        <div className="flex items-center justify-between px-3 py-2 bg-neutral-100 border border-b-0 border-neutral-200 rounded-t-lg">
-          <span className="text-[11px] font-medium text-neutral-700">{title}</span>
+        <div className="flex items-center justify-between rounded-t-lg border border-b-0 border-neutral-200 bg-neutral-100 px-3 py-2 dark:border-neutral-700 dark:bg-neutral-800">
+          <span className="text-[11px] font-medium text-neutral-700 dark:text-neutral-200">{title}</span>
         </div>
       )}
       <div className={`absolute right-2 z-10 flex items-center gap-2 ${title ? 'top-10' : 'top-2'}`}>
@@ -104,7 +104,7 @@ export default function CodeBlock({
           type="button"
           title={copied ? "Copied" : "Copy code"}
           aria-label={copied ? "Copied" : "Copy code"}
-          className="cursor-pointer inline-flex items-center gap-2 px-1.5 py-1.5 rounded-md text-neutral-700 bg-neutral-100 hover:bg-neutral-200 ring-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-300"
+          className="inline-flex cursor-pointer items-center gap-2 rounded-md bg-neutral-100 px-1.5 py-1.5 text-neutral-700 ring-0 hover:bg-neutral-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-300 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus-visible:ring-neutral-600"
           onClick={copy}
         >
           <AnimatePresence mode="wait">
@@ -137,34 +137,8 @@ export default function CodeBlock({
       </div>
 
       <pre
-        className={`overflow-auto border border-neutral-200 text-neutral-900 p-4 scrollbar-thin ${title ? 'rounded-b-lg rounded-t-none' : 'rounded-lg'}`}
-        style={{
-          scrollbarWidth: 'thin',
-          scrollbarColor: 'rgba(150,150,150,0.5) transparent',
-        }}
+        className={`overflow-auto border border-neutral-200 p-4 text-neutral-900 [scrollbar-color:rgb(150_150_150_/_0.5)_transparent] [scrollbar-width:thin] [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-neutral-400/50 [&::-webkit-scrollbar-thumb:hover]:bg-neutral-500/60 dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-100 ${title ? 'rounded-b-lg rounded-t-none' : 'rounded-lg'}`}
       >
-        <style>{`
-          pre.scrollbar-thin::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-          }
-          pre.scrollbar-thin::-webkit-scrollbar-track {
-            background: transparent;
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-          }
-          pre.scrollbar-thin::-webkit-scrollbar-thumb {
-            background: rgba(150,150,150,0.45);
-            border-radius: 999px;
-            border: none;
-          }
-          pre.scrollbar-thin::-webkit-scrollbar-thumb:hover {
-            background: rgba(120,120,120,0.6);
-          }
-          pre.scrollbar-thin::-webkit-scrollbar-corner {
-            background: transparent;
-          }
-        `}</style>
         <code className={`block whitespace-pre ${language ? `language-${language}` : ""}`}>
           {(() => {
             const tokenizedLines = lines.map((l) => highlightLine(l));
@@ -178,7 +152,7 @@ export default function CodeBlock({
                 : type === 'tag' ? 'text-orange-600'
                 : type === 'attr' ? 'text-yellow-600'
                 : type === 'punct' ? 'text-neutral-600'
-                : 'text-neutral-800';
+                : 'text-neutral-800 dark:text-neutral-200';
               // whitespace tokens should not get a class, preserve them for spacing
               if (type === 'whitespace') return <span key={key}>{token.text}</span>;
               return <span key={key} className={cls}>{token.text}</span>;
@@ -201,7 +175,7 @@ export default function CodeBlock({
         <div className="flex justify-end mt-2 px-2">
             <button
             type="button"
-            className="text-xs text-neutral-600 hover:text-neutral-900 focus:outline-none cursor-pointer"
+            className="cursor-pointer text-xs text-neutral-600 hover:text-neutral-900 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-100"
             onClick={() => setExpanded(!expanded)}
           >
             {expanded ? 'Show less' : `Show ${lines.length - previewLines} more`}

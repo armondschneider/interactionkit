@@ -18,7 +18,7 @@
     "hugeicons-react": "^0.3.0",
     "lucide-react": "^0.554.0",
     "motion": "^12.23.6",
-    "next": "15.3.5",
+    "next": "15.5.20",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

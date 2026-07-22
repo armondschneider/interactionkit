@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
+import { AnimatePresence, LayoutGroup, animate, motion, useMotionValue, useTransform } from "framer-motion";
 import Image from "next/image";
 
 type Props = {
@@ -42,11 +42,10 @@ export default function ImageModal({ src, alt = '', layoutId, className = '' }: 
       Math.abs(offset.y) > threshold ||
       Math.abs(velocity.x) > velocityThreshold ||
       Math.abs(velocity.y) > velocityThreshold;
-    if (didClose) {
-      onClose();
-    }
     return didClose;
   };
+
+  const viewTransition = { duration: 0.32, ease: [0.22, 1, 0.36, 1] as const };
 
   const mvX = useMotionValue(0);
   const mvY = useMotionValue(0);
@@ -62,16 +61,15 @@ export default function ImageModal({ src, alt = '', layoutId, className = '' }: 
   }, [open, mvX, mvY]);
 
   return (
-    <>
+    <LayoutGroup id={`image-modal-${id}`}>
       <motion.button
         layoutId={id}
         type="button"
         onClick={() => setOpen(true)}
-        className={`relative w-full h-48 sm:h-56 md:h-64 rounded-lg overflow-hidden bg-neutral-100 hover:shadow-lg transition-shadow ${className}`}
+        className={`relative h-48 w-full cursor-pointer overflow-hidden rounded-lg bg-neutral-100 transition-shadow hover:shadow-lg dark:bg-neutral-800 sm:h-56 md:h-64 ${className}`}
         aria-label={`Open ${alt}`}
-        style={{ cursor: 'pointer' }}
-        whileHover={{ scale: 1.02 }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        whileHover={{ scale: 1.01 }}
+        transition={viewTransition}
       >
         <Image 
           src={src} 
@@ -97,65 +95,48 @@ export default function ImageModal({ src, alt = '', layoutId, className = '' }: 
             />
 
             <motion.div
-            key="container"
-            className="fixed inset-0 z-[70] flex items-center justify-center p-4 pointer-events-none"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-          >
+              key="container"
+              className="pointer-events-none fixed inset-0 z-[70] flex items-center justify-center p-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+            >
             <motion.div
-              layoutId={id}
               drag
-              style={{ 
+              style={{
                 x: mvX, 
                 y: mvY, 
                 rotateZ, 
                 rotateX, 
-                perspective: 1200, 
-                willChange: "transform", 
-                touchAction: "none",
-                // Position and centering handled by the surrounding flex container.
-                width: 'min(900px, 92vw)',
-                aspectRatio: '16/9',
-                maxHeight: '90vh',
               }}
               dragConstraints={{ top: -90, left: -90, right: 90, bottom: 90 }}
               dragElastic={0.22}
               onDragEnd={(_, info) => {
                 const shouldClose = closeIfDragged(info.offset, info.velocity);
                 if (shouldClose) {
-                  // fling the modal outwards and then close
-                  const px = info.offset.x + info.velocity.x * 120;
-                  const py = info.offset.y + info.velocity.y * 120;
-                  animate(mvX, px, { type: "spring", stiffness: 500, damping: 36 });
-                  animate(mvY, py, { type: "spring", stiffness: 500, damping: 36 });
-                  // allow the fling to be visible and then reset transforms before closing
+                  animate(mvX, info.offset.x + info.velocity.x * 80, { duration: 0.16, ease: "easeOut" });
+                  animate(mvY, info.offset.y + info.velocity.y * 80, { duration: 0.16, ease: "easeOut" });
                   setTimeout(() => {
-                    // quickly reset transforms back to zero so the layout animation doesn't start from an offset value
-                    animate(mvX, 0, { duration: 0.12 });
-                    animate(mvY, 0, { duration: 0.12 });
-                    setTimeout(() => onClose(), 140);
-                  }, 200);
+                    mvX.set(0);
+                    mvY.set(0);
+                    onClose();
+                  }, 160);
                 } else {
-                  animate(mvX, 0, { type: "spring", stiffness: 160, damping: 22, velocity: info.velocity.x });
-                  animate(mvY, 0, { type: "spring", stiffness: 160, damping: 22, velocity: info.velocity.y });
+                  animate(mvX, 0, { duration: 0.22, ease: [0.22, 1, 0.36, 1] });
+                  animate(mvY, 0, { duration: 0.22, ease: [0.22, 1, 0.36, 1] });
                 }
               }}
               whileDrag={{ scale: 1.01 }}
-              initial={{ scale: 0.98, opacity: 0 }}
-              animate={{ scale: 1.02, opacity: 1 }}
-              exit={{ scale: 0.98, opacity: 0 }}
-              transition={{ 
-                type: "spring", 
-                stiffness: 400, 
-                damping: 30,
-                opacity: { duration: 0.2 }
-              }}
-              className="pointer-events-auto w-full max-w-[900px] max-h-[90vh] rounded-lg overflow-hidden bg-white shadow-sm cursor-grab active:cursor-grabbing"
+              className="pointer-events-auto cursor-grab touch-none [perspective:1200px] [will-change:transform] active:cursor-grabbing"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative w-full h-full bg-neutral-100">
+              <motion.div
+                layoutId={id}
+                transition={viewTransition}
+                className="aspect-video w-[min(900px,92vw)] max-h-[90vh] overflow-hidden rounded-lg bg-white shadow-sm dark:bg-neutral-900"
+              >
+              <div className="relative h-full w-full bg-neutral-100 dark:bg-neutral-800">
                 <Image
                   src={image.src}
                   alt={image.alt ?? ""}
@@ -167,11 +148,12 @@ export default function ImageModal({ src, alt = '', layoutId, className = '' }: 
                   priority
                 />
               </div>
+              </motion.div>
             </motion.div>
           </motion.div>
         </>
       )}
     </AnimatePresence>
-    </>
+    </LayoutGroup>
   );
 }
