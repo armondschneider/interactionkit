@@ -49,7 +49,7 @@ export default function TextHighlight({
           mask={`url(#${maskId})`}
         />
       </svg>
-      <span className="relative">{children}</span>
+      <span className="relative dark:text-neutral-900">{children}</span>
       <AnimatePresence>
         {imageSrc && isHovered && (
           <motion.span
