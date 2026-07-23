@@ -50,7 +50,7 @@ export default function Home() {
     <>
     <main className={`min-h-screen transition-colors ${dimmed ? "dark bg-[#171716] text-neutral-100" : "bg-neutral-50 text-neutral-800"}`}>
       <nav className="mx-auto flex h-14 w-[calc(100%-2rem)] max-w-[620px] items-center justify-between text-xs text-neutral-400 sm:w-[calc(100%-2.5rem)]" aria-label="Primary navigation">
-        <a href="#top" className="h-3 w-3 rounded-full bg-neutral-900" aria-label="InteractionKit home" />
+        <a href="#top" className="h-3 w-3 rounded-full bg-neutral-900 transition-colors duration-150 hover:bg-neutral-700 dark:bg-neutral-100 dark:hover:bg-white" aria-label="InteractionKit home" />
         <div className="flex items-center gap-3">
           <a className="transition-[color,transform] duration-150 hover:-translate-y-px hover:text-neutral-800 dark:hover:text-neutral-200" href="https://x.com/armondme" target="_blank" rel="noreferrer">X</a>
           <a className="transition-[color,transform] duration-150 hover:-translate-y-px hover:text-neutral-800 dark:hover:text-neutral-200" href="https://github.com/armondschneider/interactionkit" target="_blank" rel="noreferrer">GitHub</a>

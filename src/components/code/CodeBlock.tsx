@@ -137,7 +137,7 @@ export default function CodeBlock({
       </div>
 
       <pre
-        className={`overflow-auto border border-neutral-200 p-4 text-neutral-900 [scrollbar-color:rgb(150_150_150_/_0.5)_transparent] [scrollbar-width:thin] [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-neutral-400/50 [&::-webkit-scrollbar-thumb:hover]:bg-neutral-500/60 dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-100 ${title ? 'rounded-b-lg rounded-t-none' : 'rounded-lg'}`}
+        className={`overflow-auto border border-neutral-200 p-4 text-neutral-900 [scrollbar-color:rgb(150_150_150_/_0.5)_transparent] [scrollbar-width:thin] [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-neutral-400/50 [&::-webkit-scrollbar-thumb:hover]:bg-neutral-500/60 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100 ${title ? 'rounded-b-lg rounded-t-none' : 'rounded-lg'}`}
       >
         <code className={`block whitespace-pre ${language ? `language-${language}` : ""}`}>
           {(() => {
