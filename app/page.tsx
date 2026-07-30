@@ -9,6 +9,7 @@ import ImageModal from "../src/components/image/ImageModal";
 import MultipleImageExpand from "../src/components/image/MultipleImageExpand";
 import SoundToggle from "../src/components/sound/SoundToggle";
 import { SpringButton, SpringLinkButton } from "../src/components/general/SpringButton";
+import ClickHoldDeleteDemo from "../src/components/general/ClickHoldDeleteDemo";
 import Tab from "../src/components/tabs/Tab";
 import Tooltip from "../src/components/hover/Tooltip";
 
@@ -97,6 +98,10 @@ export default function Home() {
               <SpringButton pressSpring={false}>Hover only</SpringButton>
               <SpringButton>Press spring</SpringButton>
             </div>
+          </DemoSection>
+
+          <DemoSection title="Hold to delete" category="Deliberate action" href="/demo/click-hold-button" dark={dimmed}>
+            <ClickHoldDeleteDemo />
           </DemoSection>
 
           <DemoSection title="Tabs" category="Content navigation" href="/demo/tabs" dark={dimmed}>

@@ -1,95 +1,123 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import { animate, motion, useMotionValue, useReducedMotion, useTransform } from "framer-motion";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 type Props = {
   onConfirm?: () => void;
   duration?: number;
-  children?: React.ReactNode;
+  children?: ReactNode;
+  completedLabel?: ReactNode;
+  resetAfter?: number;
   className?: string;
 };
 
-export default function ClickHoldButton({ 
-  onConfirm, 
-  duration = 900, 
-  children = "Click and hold",
-  className = ""
+export default function ClickHoldButton({
+  onConfirm,
+  duration = 900,
+  children = "Hold to delete",
+  completedLabel = "Deleted",
+  resetAfter,
+  className = "",
 }: Props) {
-  const holdTimer = useRef<number | null>(null);
-  const holdProgress = useMotionValue(0);
-  const scaleX = useTransform(holdProgress, [0, 100], [0, 1]);
-  
-  const [status, setStatus] = useState<"idle" | "deleting" | "deleted">("idle");
+  const holdTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const resetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const progressAnimation = useRef<ReturnType<typeof animate> | null>(null);
+  const progress = useMotionValue(0);
+  const scaleX = useTransform(progress, [0, 1], [0, 1]);
+  const prefersReducedMotion = useReducedMotion();
+  const [status, setStatus] = useState<"idle" | "holding" | "deleted">("idle");
 
-  const startHold = () => {
-    // Animate progress from 0 to 100 over duration
-    animate(holdProgress, 100, { duration: duration / 1000, ease: "linear" });
-    
-    // @ts-ignore window.setTimeout gives number
-    holdTimer.current = window.setTimeout(() => {
-      setStatus("deleting");
-      onConfirm?.();
-      // Show "Deleted" after a brief delay
-      setTimeout(() => {
-        setStatus("deleted");
-        holdProgress.set(0);
-      }, 800);
-    }, duration);
-  };
-
-  const cancelHold = () => {
-    // Snap progress back to 0 with spring
-    animate(holdProgress, 0, { type: "spring", stiffness: 300, damping: 25 });
-    
+  const clearHold = () => {
     if (holdTimer.current) {
       clearTimeout(holdTimer.current);
       holdTimer.current = null;
     }
   };
 
+  const reset = () => {
+    clearHold();
+    progressAnimation.current?.stop();
+    progress.set(0);
+    setStatus("idle");
+  };
+
+  const confirm = () => {
+    clearHold();
+    setStatus("deleted");
+    progress.set(1);
+    onConfirm?.();
+
+    if (resetAfter) {
+      resetTimer.current = setTimeout(reset, resetAfter);
+    }
+  };
+
+  const startHold = () => {
+    if (status !== "idle") return;
+
+    setStatus("holding");
+    progressAnimation.current?.stop();
+    progressAnimation.current = animate(progress, 1, {
+      duration: duration / 1000,
+      ease: "linear",
+    });
+    holdTimer.current = setTimeout(confirm, duration);
+  };
+
+  const cancelHold = () => {
+    if (status !== "holding") return;
+
+    clearHold();
+    progressAnimation.current?.stop();
+    setStatus("idle");
+
+    if (prefersReducedMotion) {
+      progress.set(0);
+      return;
+    }
+
+    progressAnimation.current = animate(progress, 0, {
+      type: "spring",
+      stiffness: 340,
+      damping: 28,
+    });
+  };
+
+  useEffect(() => () => {
+    clearHold();
+    if (resetTimer.current) clearTimeout(resetTimer.current);
+    progressAnimation.current?.stop();
+  }, []);
+
   return (
     <motion.button
-      onPointerDown={startHold}
+      type="button"
+      onPointerDown={(event) => {
+        if (!event.isPrimary || event.button !== 0) return;
+        event.currentTarget.setPointerCapture(event.pointerId);
+        startHold();
+      }}
       onPointerUp={cancelHold}
-      onPointerLeave={cancelHold}
-      whileTap={{ scale: 0.95 }}
-      transition={{ type: "spring", stiffness: 400, damping: 20 }}
-      disabled={status !== "idle"}
-      className={`relative px-3 py-1.5 rounded-full text-sm text-white bg-red-500 overflow-hidden cursor-pointer disabled:cursor-default ${className}`}
+      onPointerCancel={cancelHold}
+      onKeyDown={(event) => {
+        if ((event.key === " " || event.key === "Enter") && !event.repeat) {
+          event.preventDefault();
+          startHold();
+        }
+      }}
+      onKeyUp={(event) => {
+        if (event.key === " " || event.key === "Enter") cancelHold();
+      }}
+      onBlur={cancelHold}
+      animate={{ scale: status === "holding" ? 0.96 : 1 }}
+      transition={prefersReducedMotion ? { duration: 0 } : { type: "spring", stiffness: 500, damping: 26, mass: 0.55 }}
+      disabled={status === "deleted"}
+      aria-label={status === "deleted" ? "Deleted" : "Press and hold to delete"}
+      className={`relative inline-flex min-h-9 min-w-32 items-center justify-center overflow-hidden cursor-pointer rounded-full bg-red-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 disabled:cursor-default disabled:bg-red-500 dark:focus-visible:ring-offset-neutral-900 ${className}`}
     >
-      <motion.div
-        className="absolute inset-0 origin-left bg-red-600/50"
-        style={{ scaleX }}
-      />
-      <span className="relative z-10 flex items-center gap-2 justify-center">
-        {status === "idle" && children}
-        {status === "deleting" && (
-          <>
-            <motion.svg
-              className="w-4 h-4"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-                strokeDasharray="60"
-                strokeDashoffset="15"
-                strokeLinecap="round"
-              />
-            </motion.svg>
-            Deleting...
-          </>
-        )}
-        {status === "deleted" && "Deleted!"}
-      </span>
+      <motion.span className="absolute inset-0 origin-left bg-red-700/45" style={{ scaleX }} />
+      <span className="relative z-10">{status === "deleted" ? completedLabel : children}</span>
     </motion.button>
   );
 }
