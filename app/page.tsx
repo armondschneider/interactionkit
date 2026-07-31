@@ -8,6 +8,7 @@ import TextHighlight from "../src/components/highlight/TextHighlight";
 import ImageModal from "../src/components/image/ImageModal";
 import MultipleImageExpand from "../src/components/image/MultipleImageExpand";
 import SoundToggle from "../src/components/sound/SoundToggle";
+import EmojiPicker from "../src/components/emoji/EmojiPicker";
 import { SpringButton, SpringLinkButton } from "../src/components/general/SpringButton";
 import ClickHoldDeleteDemo from "../src/components/general/ClickHoldDeleteDemo";
 import Tab from "../src/components/tabs/Tab";
@@ -18,10 +19,11 @@ type DemoSectionProps = {
   category: string;
   href: string;
   dark: boolean;
+  allowOverflow?: boolean;
   children: ReactNode;
 };
 
-function DemoSection({ title, category, href, dark, children }: DemoSectionProps) {
+function DemoSection({ title, category, href, dark, allowOverflow = false, children }: DemoSectionProps) {
   return (
     <article className={`border-t py-6 sm:py-7 ${dark ? "border-neutral-800" : "border-neutral-200"}`}>
       <header className="mb-7 flex items-start justify-between">
@@ -37,7 +39,7 @@ function DemoSection({ title, category, href, dark, children }: DemoSectionProps
           Open Demo
         </SpringLinkButton>
       </header>
-      <div className={`flex h-[280px] items-center justify-center overflow-hidden rounded-xl border sm:h-[310px] ${dark ? "border-neutral-800 bg-neutral-900" : "border-neutral-200 bg-white/40"}`}>
+      <div className={`flex h-[280px] items-center justify-center ${allowOverflow ? "overflow-visible" : "overflow-hidden"} rounded-xl border sm:h-[310px] ${dark ? "border-neutral-800 bg-neutral-900" : "border-neutral-200 bg-white/40"}`}>
         {children}
       </div>
     </article>
@@ -90,6 +92,13 @@ export default function Home() {
             <div className="flex flex-col items-center gap-3 text-[11px] text-neutral-500 dark:text-neutral-400">
               <SoundToggle playSound={false} className="border border-neutral-200 !bg-white !p-3.5 !text-neutral-800 shadow-[0_5px_12px_rgba(0,0,0,0.04)] dark:border-neutral-700 dark:!bg-neutral-800 dark:!text-neutral-100 dark:shadow-black/20" />
               <span>Toggle sound</span>
+            </div>
+          </DemoSection>
+
+          <DemoSection title="Emoji picker" category="Expressive input" href="/demo/emoji-picker" dark={dimmed} allowOverflow>
+            <div className="flex -translate-y-24 flex-col items-center gap-3 text-[11px] text-neutral-500 dark:text-neutral-400">
+              <EmojiPicker />
+              <span>Choose an emoji</span>
             </div>
           </DemoSection>
 
