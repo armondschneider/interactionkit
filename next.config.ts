@@ -6,6 +6,10 @@ const isVercel = !!process.env.VERCEL;
 const nextConfig: NextConfig = {
   output: 'export',
   trailingSlash: true,
+  turbopack: {
+    root: __dirname,
+  },
+  outputFileTracingRoot: __dirname,
   images: {
     domains: ['images.unsplash.com', 'images.pexels.com'],
     unoptimized: true,
