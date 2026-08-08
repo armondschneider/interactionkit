@@ -9,6 +9,7 @@ import ImageModal from "../src/components/image/ImageModal";
 import MultipleImageExpand from "../src/components/image/MultipleImageExpand";
 import SoundToggle from "../src/components/sound/SoundToggle";
 import EmojiPicker from "../src/components/emoji/EmojiPicker";
+import SearchExpand from "../src/components/search/SearchExpand";
 import { SpringButton, SpringLinkButton } from "../src/components/general/SpringButton";
 import ClickHoldDeleteDemo from "../src/components/general/ClickHoldDeleteDemo";
 import Tab from "../src/components/tabs/Tab";
@@ -102,6 +103,12 @@ export default function Home() {
             </div>
           </DemoSection>
 
+          <DemoSection title="Search expand" category="Focused input" href="/demo/search-expand" dark={dimmed} allowOverflow>
+            <div className="-translate-y-20">
+              <SearchExpand />
+            </div>
+          </DemoSection>
+
           <DemoSection title="Spring button" category="Press feedback" href="/demo/spring-button" dark={dimmed}>
             <div className="flex items-center gap-4">
               <SpringButton pressSpring={false}>Hover only</SpringButton>
@@ -146,8 +153,8 @@ export default function Home() {
           </DemoSection>
         </section>
 
-        <footer className={`border-t py-6 pb-16 text-[11px] text-neutral-400 ${dimmed ? "border-neutral-800" : "border-neutral-200"}`}>
-          Made by <a href="https://armond.me" className="underline hover:text-neutral-800 dark:hover:text-neutral-200">Armond Schneider</a>
+        <footer className={`border-t py-6 pb-16 text-[11px] text-neutral-400 transition-colors ${dimmed ? "border-neutral-800" : "border-neutral-200"}`}>
+          Made by <a href="https://armond.me" className="underline transition-colors duration-150 hover:text-neutral-800 dark:hover:text-neutral-200">Armond Schneider</a> with the help of <a href="https://otis.example.com" className="underline transition-colors duration-150 hover:text-neutral-800 dark:hover:text-neutral-200">Otis</a>
         </footer>
       </div>
     </main>
