@@ -1,3 +1,5 @@
+
+
 # InteractionKit
 
 InteractionKit is an experimental collection of polished, copy-ready React interactions. It explores the small details that make an interface feel considered: motion feedback, spatial transitions, focused overlays, and deliberate actions.
@@ -7,6 +9,7 @@ The repository is both a living gallery of interaction studies and the source fo
 ## Stack
 
 - React 19 and Next.js 15
+- TypeScript for type safety
 - Tailwind CSS for styling
 - Framer Motion for interaction and animation
 - Lucide and Hugeicons for icons
