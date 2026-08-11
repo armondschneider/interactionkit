@@ -154,7 +154,7 @@ export default function Home() {
         </section>
 
         <footer className={`border-t py-6 pb-16 text-[11px] text-neutral-400 transition-colors ${dimmed ? "border-neutral-800" : "border-neutral-200"}`}>
-          Made by <a href="https://armond.me" className="underline transition-colors duration-150 hover:text-neutral-800 dark:hover:text-neutral-200">Armond Schneider</a> with the help of <a href="https://otis.example.com" className="underline transition-colors duration-150 hover:text-neutral-800 dark:hover:text-neutral-200">Otis</a>
+          Made by <a href="https://armond.me" className="underline transition-colors duration-150 hover:text-neutral-800 dark:hover:text-neutral-200">Armond Schneider</a> with the help of <a href="https://github.com/TrianglLabs/otis" className="underline transition-colors duration-150 hover:text-neutral-800 dark:hover:text-neutral-200">Otis</a>
         </footer>
       </div>
     </main>
