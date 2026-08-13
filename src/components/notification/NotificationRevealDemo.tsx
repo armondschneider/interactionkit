@@ -2,25 +2,26 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
+import { NotificationBatteryLowIcon, NotificationBellIcon, NotificationSuccessIcon } from "./NotificationIcons";
 import NotificationReveal from "./NotificationReveal";
 
 const examples = [
   {
     label: "Meeting",
     title: "Meeting Soon",
-    icon: <img src="/img/IconBell2.svg" alt="" className="size-4" />,
+    icon: <NotificationBellIcon className="size-4" />,
     iconClassName: "bg-red-100 text-red-600 dark:bg-red-950 dark:text-red-400",
   },
   {
     label: "Charging",
     title: "Low battery",
-    icon: <img src="/img/IconBatteryLow.svg" alt="" className="size-4" />,
+    icon: <NotificationBatteryLowIcon className="size-4" />,
     iconClassName: "bg-amber-100 text-amber-600 dark:bg-amber-950 dark:text-amber-400",
   },
   {
     label: "Success",
     title: "Form submitted",
-    icon: <img src="/img/IconCheckCircle2.svg?v=green" alt="" className="size-5" />,
+    icon: <NotificationSuccessIcon className="size-5" />,
     iconClassName: "bg-green-100 text-green-600 dark:bg-green-950 dark:text-green-400",
   },
 ];

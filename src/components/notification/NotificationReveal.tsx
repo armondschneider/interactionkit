@@ -3,6 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { X } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { NotificationBellIcon } from "./NotificationIcons";
 
 type NotificationRevealProps = {
   title?: string;
@@ -25,7 +26,7 @@ export default function NotificationReveal({
   className = "",
   showTrigger = true,
   autoReveal = false,
-  icon = <img src="/img/IconBell2.svg" alt="" className="size-4" />,
+  icon = <NotificationBellIcon className="size-4" />,
   iconClassName = "bg-red-100 text-red-600 dark:bg-red-950 dark:text-red-400",
   onDismiss,
 }: NotificationRevealProps) {

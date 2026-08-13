@@ -23,7 +23,7 @@ export default function MultipleImageExpand(_a) {
     return (_jsx("div", { className: "relative flex justify-center ".concat(className), children: _jsx("div", { className: "relative h-[260px] w-[440px]", children: images.map(function (image, index) {
                 var _a;
                 var offset = isExpanded ? (_a = expandedOffsets[index]) !== null && _a !== void 0 ? _a : { x: 0, y: 0 } : { x: 0, y: index * 13 };
-                return (_jsx(motion.button, { type: "button", "aria-label": "".concat(isExpanded ? "Collapse" : "Expand", " image stack"), "aria-pressed": isExpanded, className: "absolute left-1/2 top-1/2 h-[126px] w-[190px] origin-center -translate-x-1/2 -translate-y-1/2 cursor-pointer overflow-hidden rounded-xl border-[3px] border-white bg-white p-0 shadow-md outline-none focus-visible:ring-2 focus-visible:ring-neutral-300", animate: {
+                return (_jsx(motion.button, { type: "button", "aria-label": "".concat(isExpanded ? "Collapse" : "Expand", " image stack"), "aria-pressed": isExpanded, className: "absolute left-1/2 top-1/2 h-[126px] w-[190px] origin-center -translate-x-1/2 -translate-y-1/2 cursor-pointer overflow-hidden rounded-xl border-[3px] border-white bg-white p-0 shadow-md outline-none focus-visible:ring-2 focus-visible:ring-neutral-300 dark:border-neutral-700 dark:bg-neutral-800 dark:focus-visible:ring-neutral-600", initial: false, animate: {
                         x: offset.x,
                         y: offset.y,
                         rotate: isExpanded ? rotations[index].expanded : rotations[index].collapsed,
