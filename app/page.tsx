@@ -10,6 +10,7 @@ import MultipleImageExpand from "../src/components/image/MultipleImageExpand";
 import SoundToggle from "../src/components/sound/SoundToggle";
 import EmojiPicker from "../src/components/emoji/EmojiPicker";
 import SearchExpand from "../src/components/search/SearchExpand";
+import NotificationRevealDemo from "../src/components/notification/NotificationRevealDemo";
 import { SpringButton, SpringLinkButton } from "../src/components/general/SpringButton";
 import ClickHoldDeleteDemo from "../src/components/general/ClickHoldDeleteDemo";
 import Tab from "../src/components/tabs/Tab";
@@ -107,6 +108,10 @@ export default function Home() {
             <div className="-translate-y-20">
               <SearchExpand />
             </div>
+          </DemoSection>
+
+          <DemoSection title="Notification reveal" category="Transient feedback" href="/demo/notification-reveal" dark={dimmed}>
+            <NotificationRevealDemo />
           </DemoSection>
 
           <DemoSection title="Spring button" category="Press feedback" href="/demo/spring-button" dark={dimmed}>
