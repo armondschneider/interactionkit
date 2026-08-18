@@ -15,6 +15,7 @@ import { SpringButton, SpringLinkButton } from "../src/components/general/Spring
 import ClickHoldDeleteDemo from "../src/components/general/ClickHoldDeleteDemo";
 import Tab from "../src/components/tabs/Tab";
 import Tooltip from "../src/components/hover/Tooltip";
+import PasswordInput from "../src/components/input/PasswordInput";
 
 type DemoSectionProps = {
   title: string;
@@ -107,6 +108,12 @@ export default function Home() {
           <DemoSection title="Search expand" category="Focused input" href="/demo/search-expand" dark={dimmed} allowOverflow>
             <div className="-translate-y-20">
               <SearchExpand />
+            </div>
+          </DemoSection>
+
+          <DemoSection title="Incorrect password" category="Input validation" href="/demo/password-input" dark={dimmed}>
+            <div className="w-[calc(100%-2.5rem)] max-w-72">
+              <PasswordInput verifyPassword={(password) => password === "oliver"} />
             </div>
           </DemoSection>
 
