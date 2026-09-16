@@ -2,6 +2,7 @@
 
 import { Moon, Sun } from "lucide-react";
 import { Analytics } from "@vercel/analytics/next";
+import { motion, useReducedMotion } from "framer-motion";
 import { useState, type ReactNode } from "react";
 import CodeBlock from "../src/components/code/CodeBlock";
 import TextHighlight from "../src/components/highlight/TextHighlight";
@@ -10,12 +11,14 @@ import MultipleImageExpand from "../src/components/image/MultipleImageExpand";
 import SoundToggle from "../src/components/sound/SoundToggle";
 import EmojiPicker from "../src/components/emoji/EmojiPicker";
 import SearchExpand from "../src/components/search/SearchExpand";
+import FeedbackMorph from "../src/components/feedback/FeedbackMorph";
 import NotificationRevealDemo from "../src/components/notification/NotificationRevealDemo";
 import { SpringButton, SpringLinkButton } from "../src/components/general/SpringButton";
 import ClickHoldDeleteDemo from "../src/components/general/ClickHoldDeleteDemo";
 import Tab from "../src/components/tabs/Tab";
 import Tooltip from "../src/components/hover/Tooltip";
 import PasswordInput from "../src/components/input/PasswordInput";
+import MaxWidthDemo from "../src/components/layout/MaxWidthDemo";
 
 type DemoSectionProps = {
   title: string;
@@ -51,6 +54,7 @@ function DemoSection({ title, category, href, dark, allowOverflow = false, child
 
 export default function Home() {
   const [dimmed, setDimmed] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <>
@@ -69,6 +73,35 @@ export default function Home() {
       <div className="mx-auto w-[calc(100%-2rem)] max-w-[594px] sm:w-[calc(100%-2.5rem)]" id="top">
         <section className="py-20 sm:py-[104px]" aria-labelledby="page-title">
           <p className="mt-4 max-w-lg text-base font-medium leading-relaxed text-neutral-800 dark:text-neutral-200">A collection of copy-ready React components for the quiet details that make an interface feel considered.</p>
+          <a href="/view" className="group mt-6 inline-flex min-h-8 items-center text-xs text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">
+            <span className="relative z-10 mr-1.5 inline-flex items-center font-medium text-neutral-700 dark:text-neutral-300">
+              <span className="relative z-10">NEW</span>
+              <svg aria-hidden="true" viewBox="0 0 48 25" className="pointer-events-none absolute -inset-x-2 -inset-y-1.5 z-0 h-[calc(100%+0.75rem)] w-[calc(100%+1rem)] overflow-visible text-blue-500 dark:text-blue-400">
+                <motion.path
+                  d="M6.5 13.5C5.8 7 13.8 2.2 24.8 2.1c11.2-.1 18.4 3.5 17.1 10.2-1.4 6.8-10.2 10.3-21.2 10.4C10.6 22.8 3.4 20.1 6.5 13.5Z"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 1 }}
+                  transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+                />
+                <motion.path
+                  d="M8.2 11.8C9.3 5.5 17.2 1.1 27.6 2.4c10.1 1.2 15.8 5 13.5 11.5-2.2 6.2-11.2 9.3-21 8.6C10.7 21.8 5.8 18.4 8.2 11.8Z"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  strokeLinecap="round"
+                  opacity="0.55"
+                  initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 0.55 }}
+                  transition={{ duration: 0.85, delay: 0.28, ease: "easeOut" }}
+                />
+              </svg>
+            </span>
+            <span className="underline decoration-neutral-300 underline-offset-4 transition-[text-decoration-color] group-hover:decoration-neutral-700 dark:decoration-neutral-700 dark:group-hover:decoration-neutral-300">Image View Transitions</span>
+          </a>
         </section>
 
         <section aria-label="Live interaction demos">
@@ -111,10 +144,21 @@ export default function Home() {
             </div>
           </DemoSection>
 
+          <DemoSection title="Feedback morph" category="Inline feedback" href="/demo/feedback-morph" dark={dimmed}>
+            <div className="flex flex-col items-center gap-4 text-[11px] text-neutral-500 dark:text-neutral-400">
+              <span>Was this helpful?</span>
+              <FeedbackMorph />
+            </div>
+          </DemoSection>
+
           <DemoSection title="Incorrect password" category="Input validation" href="/demo/password-input" dark={dimmed}>
             <div className="w-[calc(100%-2.5rem)] max-w-72">
               <PasswordInput verifyPassword={(password) => password === "oliver"} />
             </div>
+          </DemoSection>
+
+          <DemoSection title="Max width" category="Responsive layout" href="/demo/max-width" dark={dimmed}>
+            <MaxWidthDemo />
           </DemoSection>
 
           <DemoSection title="Notification reveal" category="Transient feedback" href="/demo/notification-reveal" dark={dimmed}>

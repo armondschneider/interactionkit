@@ -35,6 +35,7 @@ Visit `http://localhost:3000` to explore the live demos and copy component sourc
 npm run dev          # Start the local Next.js development server
 npm run build        # Create a production static export
 npm run build:lib    # Build the distributable component library
+npm run test         # Run the component tests with Vitest
 ```
 
 ## Contributing

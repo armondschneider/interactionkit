@@ -9,9 +9,12 @@ type Props = {
   alt?: string;
   layoutId?: string;
   className?: string;
+  expandedClassName?: string;
+  backdropClassName?: string;
+  animateLayout?: boolean;
 };
 
-export default function ImageModal({ src, alt = '', layoutId, className = '' }: Props) {
+export default function ImageModal({ src, alt = '', layoutId, className = '', expandedClassName = '', backdropClassName = '', animateLayout = false }: Props) {
   const [open, setOpen] = useState(false);
   const id = layoutId || `img-modal-${src.slice(-10)}`;
   const image = open ? { src, alt } : null;
@@ -28,9 +31,13 @@ export default function ImageModal({ src, alt = '', layoutId, className = '' }: 
   useEffect(() => {
     if (!image) return;
     const prev = document.body.style.overflow;
+    const prevPaddingRight = document.body.style.paddingRight;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) document.body.style.paddingRight = `${scrollbarWidth}px`;
     return () => {
       document.body.style.overflow = prev;
+      document.body.style.paddingRight = prevPaddingRight;
     };
   }, [image]);
 
@@ -63,6 +70,7 @@ export default function ImageModal({ src, alt = '', layoutId, className = '' }: 
   return (
     <LayoutGroup id={`image-modal-${id}`}>
       <motion.button
+        layout={animateLayout}
         layoutId={id}
         type="button"
         onClick={() => setOpen(true)}
@@ -90,7 +98,7 @@ export default function ImageModal({ src, alt = '', layoutId, className = '' }: 
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              className="fixed inset-0 bg-black/40 z-[60] backdrop-blur-md cursor-pointer"
+              className={`fixed inset-0 z-[60] cursor-pointer bg-black/40 backdrop-blur-md ${backdropClassName}`}
               onClick={onClose}
             />
 
@@ -134,7 +142,7 @@ export default function ImageModal({ src, alt = '', layoutId, className = '' }: 
               <motion.div
                 layoutId={id}
                 transition={viewTransition}
-                className="aspect-video w-[min(900px,92vw)] max-h-[90vh] overflow-hidden rounded-lg bg-white shadow-sm dark:bg-neutral-900"
+                className={`aspect-video w-[min(900px,92vw)] max-h-[90vh] overflow-hidden rounded-lg bg-white shadow-sm dark:bg-neutral-900 ${expandedClassName}`}
               >
               <div className="relative h-full w-full bg-neutral-100 dark:bg-neutral-800">
                 <Image
