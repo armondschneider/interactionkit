@@ -19,7 +19,10 @@ import Tab from "../src/components/tabs/Tab";
 import Tooltip from "../src/components/hover/Tooltip";
 import PasswordInput from "../src/components/input/PasswordInput";
 import MaxWidthDemo from "../src/components/layout/MaxWidthDemo";
+import SwipeToDeleteDemo from "../src/components/general/SwipeToDeleteDemo";
+import SquishyButton from "../src/components/general/SquishyButton";
 import DownloadFileDemo from "../src/components/general/DownloadFileDemo";
+import NextChapter from "../src/components/general/NextChapter";
 
 type DemoSectionProps = {
   title: string;
@@ -73,6 +76,7 @@ export default function Home() {
 
       <div className="mx-auto w-[calc(100%-2rem)] max-w-[594px] sm:w-[calc(100%-2.5rem)]" id="top">
         <section className="py-20 sm:py-[104px]" aria-labelledby="page-title">
+          <NextChapter />
           <p className="mt-4 max-w-lg text-base font-medium leading-relaxed text-neutral-800 dark:text-neutral-200">A collection of copy-ready React components for the quiet details that make an interface feel considered.</p>
           <a href="/view" className="group mt-6 inline-flex min-h-8 items-center text-xs text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">
             <span className="relative z-10 mr-1.5 inline-flex items-center font-medium text-neutral-700 dark:text-neutral-300">
@@ -177,8 +181,18 @@ export default function Home() {
             </div>
           </DemoSection>
 
+          <DemoSection title="Squishy button" category="Press and hold" href="/squishy" dark={dimmed}>
+            <div className="w-[min(18rem,calc(100%-1.5rem))]">
+              <SquishyButton soundEnabled={false} />
+            </div>
+          </DemoSection>
+
           <DemoSection title="Hold to delete" category="Deliberate action" href="/demo/click-hold-button" dark={dimmed}>
             <ClickHoldDeleteDemo />
+          </DemoSection>
+
+          <DemoSection title="Swipe to delete" category="List actions" href="/demo/swipe-to-delete" dark={dimmed}>
+            <SwipeToDeleteDemo />
           </DemoSection>
 
           <DemoSection title="Tabs" category="Content navigation" href="/demo/tabs" dark={dimmed}>

@@ -1,5 +1,7 @@
 # InteractionKit
 
+![InteractionKit preview](.github/readme.png)
+
 InteractionKit is an experimental collection of polished, copy-ready React interactions. It explores the small details that make an interface feel considered: motion feedback, spatial transitions, focused overlays, and deliberate actions.
 
 The repository is both a living gallery of interaction studies and the source for reusable components. Each demo presents the interaction in context and exposes its implementation for adaptation in other projects.
