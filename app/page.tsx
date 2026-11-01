@@ -19,6 +19,7 @@ import Tab from "../src/components/tabs/Tab";
 import Tooltip from "../src/components/hover/Tooltip";
 import PasswordInput from "../src/components/input/PasswordInput";
 import MaxWidthDemo from "../src/components/layout/MaxWidthDemo";
+import DownloadFileDemo from "../src/components/general/DownloadFileDemo";
 
 type DemoSectionProps = {
   title: string;
@@ -105,6 +106,10 @@ export default function Home() {
         </section>
 
         <section aria-label="Live interaction demos">
+          <DemoSection title="Download to file" category="Progress and completion" href="/demo/download-file" dark={dimmed}>
+            <DownloadFileDemo />
+          </DemoSection>
+
           <DemoSection title="Image expand" category="Spatial interaction" href="/demo/imageexpand" dark={dimmed}>
             <div className="scale-[.52] sm:scale-[.66]">
               <MultipleImageExpand
