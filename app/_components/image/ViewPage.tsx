@@ -3,21 +3,15 @@
 import CodeBlock from "../code/CodeBlock";
 import ImageModal from "./ImageModal";
 import ImageGridRearrange from "./ImageGridRearrange";
-import ImageGridModal from "./ImageGridModal";
+import ImageGridModal from "../../../src/examples/image/ImageGridModal";
 import { SpringLinkButton } from "../general/SpringButton";
+import { imageGridImages as images } from "../../../src/examples/image/exampleImages";
 
 type Props = {
   modalSource: string;
   stackSource: string;
   gallerySource: string;
 };
-
-const images = [
-  { src: "https://images.unsplash.com/photo-1767303052911-598405c8cec8?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "Landscape photograph" },
-  { src: "https://images.unsplash.com/photo-1681747971529-32b0cb0b6b25?q=80&w=2675&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "Coastal photograph" },
-  { src: "https://images.unsplash.com/photo-1774675662972-46f53ccf01b9?q=80&w=2675&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "Architectural photograph" },
-  { src: "https://images.unsplash.com/photo-1631970284028-9c2cbc33ad30?q=80&w=2666&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "Nature photograph" },
-];
 
 const gridImages = images.slice(0, 3);
 
@@ -46,7 +40,7 @@ export default function ViewPage({ modalSource, stackSource, gallerySource }: Pr
   return (
     <main className="min-h-screen bg-neutral-50 px-5 py-2 text-neutral-800 sm:px-8 sm:py-10">
       <nav className="mx-auto flex h-14 w-full max-w-2xl items-center" aria-label="Demo navigation">
-        <SpringLinkButton href="/">Back Home</SpringLinkButton>
+        <SpringLinkButton href="/archive">Back to Archive</SpringLinkButton>
       </nav>
 
       <div className="mx-auto w-full max-w-2xl">
@@ -68,7 +62,7 @@ export default function ViewPage({ modalSource, stackSource, gallerySource }: Pr
         </section>
 
         <footer className="border-t border-neutral-200 py-6 pb-16 text-[11px] text-neutral-400 dark:border-neutral-800">
-          Made by <a href="https://armond.me" className="underline transition-colors duration-150 hover:text-neutral-800 dark:hover:text-neutral-200">Armond Schneider</a> with the help of <a href="https://github.com/TrianglLabs/otis" className="underline transition-colors duration-150 hover:text-neutral-800 dark:hover:text-neutral-200">Otis</a>
+          Made by <a href="https://armond.me" className="underline transition-colors duration-150 hover:text-neutral-800 dark:hover:text-neutral-200">Armond Schneider</a>
         </footer>
       </div>
     </main>

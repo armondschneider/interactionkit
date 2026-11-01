@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import type { Metadata } from "next";
-import SquishyPage from "../../src/components/general/SquishyPage";
+import SquishyPage from "../_components/general/SquishyPage";
 
 export const metadata: Metadata = {
   title: "Squishy Button | Interaction Kit",
@@ -15,8 +15,8 @@ function readSource(sourcePath: string) {
 export default function SquishyRoute() {
   return (
     <SquishyPage
-      source={readSource("src/components/general/SquishyButton.tsx")}
-      toolbarSource={readSource("src/components/general/DetachableBrowserToolbar.tsx")}
+      source={readSource("app/_components/general/SquishyButton.tsx")}
+      toolbarSource={readSource("app/_components/general/DetachableBrowserToolbar.tsx")}
     />
   );
 }

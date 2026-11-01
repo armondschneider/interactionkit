@@ -16,7 +16,7 @@ import {
   Phone,
   ShieldCheck,
 } from "lucide-react";
-import SettingsFeedback from "../../src/components/settings/SettingsFeedback";
+import SettingsFeedback from "../_components/settings/SettingsFeedback";
 
 export const metadata: Metadata = {
   title: "Settings | Interaction Kit",

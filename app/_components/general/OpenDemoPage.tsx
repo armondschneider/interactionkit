@@ -24,7 +24,7 @@ export default function OpenDemoPage({
   return (
     <main className="min-h-screen bg-neutral-50 px-5 py-2 text-neutral-800 sm:px-8 sm:py-10">
       <nav className="mx-auto flex h-14 w-full max-w-2xl items-center" aria-label="Demo navigation">
-        <SpringLinkButton href="/">Back Home</SpringLinkButton>
+        <SpringLinkButton href="/archive">Back to Archive</SpringLinkButton>
       </nav>
       <div className="mx-auto w-full max-w-2xl">
         <header className="mb-12 pt-8">

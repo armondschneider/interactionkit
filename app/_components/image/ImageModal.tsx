@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, LayoutGroup, animate, motion, useMotionValue, useTransform } from "framer-motion";
+import { AnimatePresence, LayoutGroup, animate, motion, useMotionValue, useReducedMotion, useTransform } from "framer-motion";
 import Image from "next/image";
 
 type Props = {
@@ -16,6 +16,7 @@ type Props = {
 
 export default function ImageModal({ src, alt = '', layoutId, className = '', expandedClassName = '', backdropClassName = '', animateLayout = false }: Props) {
   const [open, setOpen] = useState(false);
+  const reducedMotion = useReducedMotion();
   const id = layoutId || `img-modal-${src.slice(-10)}`;
   const image = open ? { src, alt } : null;
   const onClose = () => setOpen(false);
@@ -52,20 +53,19 @@ export default function ImageModal({ src, alt = '', layoutId, className = '', ex
     return didClose;
   };
 
-  const viewTransition = { duration: 0.32, ease: [0.22, 1, 0.36, 1] as const };
+  const viewTransition = { duration: reducedMotion ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] as const };
 
   const mvX = useMotionValue(0);
   const mvY = useMotionValue(0);
   const rotateZ = useTransform(mvX, [-300, 300], [-2.5, 2.5]);
   const rotateX = useTransform(mvY, [-300, 300], [2.5, -2.5]);
 
-  // Reset motion values when modal closes
-  useEffect(() => {
-    if (!open) {
-      mvX.set(0);
-      mvY.set(0);
-    }
-  }, [open, mvX, mvY]);
+  const resetDrag = () => {
+    mvX.stop();
+    mvY.stop();
+    mvX.set(0);
+    mvY.set(0);
+  };
 
   return (
     <LayoutGroup id={`image-modal-${id}`}>
@@ -73,10 +73,10 @@ export default function ImageModal({ src, alt = '', layoutId, className = '', ex
         layout={animateLayout}
         layoutId={id}
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={() => { resetDrag(); setOpen(true); }}
         className={`relative h-48 w-full cursor-pointer overflow-hidden rounded-lg bg-neutral-100 transition-shadow hover:shadow-lg dark:bg-neutral-800 sm:h-56 md:h-64 ${className}`}
         aria-label={`Open ${alt}`}
-        whileHover={{ scale: 1.01 }}
+        whileHover={reducedMotion ? undefined : { scale: 1.01 }}
         transition={viewTransition}
       >
         <Image 
@@ -89,7 +89,7 @@ export default function ImageModal({ src, alt = '', layoutId, className = '', ex
         />
       </motion.button>
 
-      <AnimatePresence>
+      <AnimatePresence onExitComplete={resetDrag}>
         {image && (
           <>
             <motion.div
@@ -97,7 +97,7 @@ export default function ImageModal({ src, alt = '', layoutId, className = '', ex
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
+              transition={{ duration: reducedMotion ? 0 : 0.2, ease: "easeOut" }}
               className={`fixed inset-0 z-[60] cursor-pointer bg-black/40 backdrop-blur-md ${backdropClassName}`}
               onClick={onClose}
             />
@@ -108,34 +108,33 @@ export default function ImageModal({ src, alt = '', layoutId, className = '', ex
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.18, ease: "easeOut" }}
+              transition={{ duration: reducedMotion ? 0 : 0.18, ease: "easeOut" }}
             >
             <motion.div
               drag
+              dragMomentum={false}
               style={{
                 x: mvX, 
                 y: mvY, 
-                rotateZ, 
-                rotateX, 
+                rotateZ: reducedMotion ? 0 : rotateZ,
+                rotateX: reducedMotion ? 0 : rotateX,
               }}
-              dragConstraints={{ top: -90, left: -90, right: 90, bottom: 90 }}
-              dragElastic={0.22}
+              onDragStart={() => { mvX.stop(); mvY.stop(); }}
               onDragEnd={(_, info) => {
                 const shouldClose = closeIfDragged(info.offset, info.velocity);
                 if (shouldClose) {
-                  animate(mvX, info.offset.x + info.velocity.x * 80, { duration: 0.16, ease: "easeOut" });
-                  animate(mvY, info.offset.y + info.velocity.y * 80, { duration: 0.16, ease: "easeOut" });
-                  setTimeout(() => {
-                    mvX.set(0);
-                    mvY.set(0);
-                    onClose();
-                  }, 160);
+                  // Let the shared layout return from the released position.
+                  // Momentum and an early reset would fight that transition.
+                  mvX.stop();
+                  mvY.stop();
+                  onClose();
                 } else {
-                  animate(mvX, 0, { duration: 0.22, ease: [0.22, 1, 0.36, 1] });
-                  animate(mvY, 0, { duration: 0.22, ease: [0.22, 1, 0.36, 1] });
+                  const spring = { type: "spring" as const, stiffness: 450, damping: 38 };
+                  animate(mvX, 0, spring);
+                  animate(mvY, 0, spring);
                 }
               }}
-              whileDrag={{ scale: 1.01 }}
+              whileDrag={reducedMotion ? undefined : { scale: 1.01 }}
               className="pointer-events-auto cursor-grab touch-none [perspective:1200px] [will-change:transform] active:cursor-grabbing"
               onClick={(e) => e.stopPropagation()}
             >

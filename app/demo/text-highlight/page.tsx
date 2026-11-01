@@ -1,9 +1,9 @@
-import OpenDemoPage from "../../../src/components/general/OpenDemoPage";
-import TextHighlight from "../../../src/components/highlight/TextHighlight";
+import OpenDemoPage from "../../_components/general/OpenDemoPage";
+import TextHighlight from "../../_components/highlight/TextHighlight";
 
 export default function TextHighlightDemoPage() {
   return (
-    <OpenDemoPage title="Text highlight" description="A hand-drawn highlight that reveals a related image on hover." sourcePath="src/components/highlight/TextHighlight.tsx" previewClassName="items-start pt-24">
+    <OpenDemoPage title="Text highlight" description="A hand-drawn highlight that reveals a related image on hover." sourcePath="app/_components/highlight/TextHighlight.tsx" previewClassName="items-start pt-24">
       <div className="max-w-xl space-y-8 text-base leading-relaxed text-neutral-800">
         <p>
           The view across{" "}

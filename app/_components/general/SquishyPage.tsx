@@ -18,7 +18,7 @@ export default function SquishyPage({ source, toolbarSource }: Props) {
   return (
     <main className="min-h-screen bg-neutral-50 px-5 py-2 text-neutral-800 sm:px-8 sm:py-10 dark:bg-[#171716] dark:text-neutral-100">
       <nav className="mx-auto flex h-14 w-full max-w-2xl items-center" aria-label="Demo navigation">
-        <SpringLinkButton href="/">Back Home</SpringLinkButton>
+        <SpringLinkButton href="/archive">Back to Archive</SpringLinkButton>
       </nav>
 
       <div className="mx-auto w-full max-w-2xl">
@@ -90,7 +90,7 @@ export default function SquishyPage({ source, toolbarSource }: Props) {
         </section>
 
         <footer className="border-t border-neutral-200 py-6 pb-16 text-[11px] text-neutral-400 dark:border-neutral-800">
-          Made by <a href="https://armond.me" className="underline transition-colors duration-150 hover:text-neutral-800 dark:hover:text-neutral-200">Armond Schneider</a> with the help of <a href="https://github.com/TrianglLabs/otis" className="underline transition-colors duration-150 hover:text-neutral-800 dark:hover:text-neutral-200">Otis</a>
+          Made by <a href="https://armond.me" className="underline transition-colors duration-150 hover:text-neutral-800 dark:hover:text-neutral-200">Armond Schneider</a>
         </footer>
       </div>
     </main>
