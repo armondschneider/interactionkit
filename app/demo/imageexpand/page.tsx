@@ -1,5 +1,5 @@
-import OpenDemoPage from "../../../src/components/general/OpenDemoPage";
-import MultipleImageExpand from "../../../src/components/image/MultipleImageExpand";
+import OpenDemoPage from "../../_components/general/OpenDemoPage";
+import MultipleImageExpand from "../../_components/image/MultipleImageExpand";
 
 const images = [
   { src: "https://images.unsplash.com/photo-1669655247997-7aaadce37d6e?q=80&w=1466&auto=format&fit=crop", alt: "Coastal landscape" },
@@ -10,7 +10,7 @@ const images = [
 
 export default function ImageExpandDemoPage() {
   return (
-    <OpenDemoPage title="Image expand" description="A stack of images that opens into a playful spatial layout." sourcePath="src/components/image/MultipleImageExpand.tsx">
+    <OpenDemoPage title="Image expand" description="A stack of images that opens into a playful spatial layout." sourcePath="app/_components/image/MultipleImageExpand.tsx">
       <MultipleImageExpand images={images} />
     </OpenDemoPage>
   );

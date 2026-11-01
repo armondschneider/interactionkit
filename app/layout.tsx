@@ -12,25 +12,30 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  ?? "https://interactionkit.org";
+const title = "InteractionKit — React components that feel native";
+const description = "Fluid, accessible React components for web apps that feel native. Thoughtful motion, keyboard support, and customizable styles.";
+const imageAlt = "InteractionKit preview in a minimal white browser window";
 
 export const metadata: Metadata = {
-  title: "Interaction Kit",
-  description: "Copy-and-paste components React components.",
+  title,
+  description,
+  applicationName: "InteractionKit",
   metadataBase: new URL(siteUrl),
   openGraph: {
-    title: "Interaction Kit",
-    description: "Copy-and-paste components React components.",
-    url: siteUrl,
-    siteName: "Interaction Kit",
-    type: 'website'
+    title,
+    description,
+    siteName: "InteractionKit",
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'Interaction Kit',
-    description: 'Copy-and-paste components React components.',
-    images: ["/opengraph-image.jpg"]
-  }
+    card: "summary_large_image",
+    title,
+    description,
+    images: [{ url: "/opengraph-image.jpg", alt: imageAlt }],
+  },
 };
 
 export default function RootLayout({

@@ -1,23 +1,42 @@
 {
-  "name": "@armondschneider/interactionkit",
-  "version": "1.0.0",
-  "description": "Beautiful React interaction components with smooth animations inspired by iOS design",
+  "name": "intkit",
+  "version": "0.0.0",
+  "description": "React interaction components for web apps that feel native and fluid",
   "type": "module",
-  "main": "index.js",
-  "module": "index.esm.js",
+  "main": "./index.cjs",
+  "module": "./index.js",
   "types": "index.d.ts",
-  "files": ["*"],
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js",
+      "require": "./index.cjs"
+    },
+    "./styles.css": "./styles.css"
+  },
+  "files": ["index.js", "index.cjs", "index.d.ts", "index.js.map", "index.cjs.map", "styles.css"],
+  "sideEffects": ["./styles.css"],
   "keywords": ["react", "components", "animation", "ios", "ui", "framer-motion"],
   "author": "Armond Schneider",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/armondschneider/interactionkit/issues"
+  },
+  "homepage": "https://github.com/armondschneider/interactionkit#readme",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/armondschneider/interactionkit.git"
+    "url": "git+https://github.com/armondschneider/interactionkit.git"
+  },
+  "dependencies": {
+    "lucide-react": "^0.554.0"
   },
   "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0",
-    "framer-motion": ">=6.0.0",
-    "hugeicons-react": ">=0.3.0"
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
+    "framer-motion": "^12.0.0"
   }
 }
