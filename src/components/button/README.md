@@ -3,8 +3,8 @@
 A quiet primary button: white in light mode, near-black in dark mode, with a 9px radius, a defined neutral border, layered shadows, and subtle spring press feedback.
 
 ```tsx
-import "intkit/styles.css";
-import { Button } from "intkit";
+import "useintkit/styles.css";
+import { Button } from "useintkit";
 
 <Button onClick={handleContinue}>Continue</Button>
 <Button type="submit" loading={saving}>Save changes</Button>

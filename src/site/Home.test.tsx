@@ -17,9 +17,9 @@ describe("homepage package metadata", () => {
     expect(link).toHaveAttribute("target", "_blank");
   });
 
-  it("makes the unpublished status clear and derives the install command from the package name", () => {
+  it("explains the staged release and derives the install command from the package name", () => {
     const { container } = render(<Home />);
-    expect(screen.getByText(`Version ${packageInfo.version} is not published yet. This command will work once the package is available on npm.`)).toBeInTheDocument();
+    expect(screen.getByText(`Version ${packageInfo.version} is awaiting npm approval. The current npm package is a placeholder and does not yet contain the components.`)).toBeInTheDocument();
     expect(container.querySelector("code")?.textContent).toBe(`pnpm add ${packageInfo.name}`);
   });
 });

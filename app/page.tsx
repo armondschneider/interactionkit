@@ -12,8 +12,8 @@ import packageInfo from "../lib-package.json";
 
 const packageUrl = `https://www.npmjs.com/package/${packageInfo.name}`;
 const installation = `pnpm add ${packageInfo.name}`;
-const usage = `import "intkit/styles.css";
-import { ImageViewer } from "intkit";
+const usage = `import "useintkit/styles.css";
+import { ImageViewer } from "useintkit";
 
 export default function Gallery() {
   return (
@@ -24,8 +24,8 @@ export default function Gallery() {
   );
 }`;
 
-const sheetUsage = `import "intkit/styles.css";
-import { Sheet } from "intkit";
+const sheetUsage = `import "useintkit/styles.css";
+import { Sheet } from "useintkit";
 
 <Sheet
   trigger="Open sheet"
@@ -35,8 +35,8 @@ import { Sheet } from "intkit";
   {/* Your content, forms, or actions */}
 </Sheet>`;
 
-const buttonUsage = `import "intkit/styles.css";
-import { Button } from "intkit";
+const buttonUsage = `import "useintkit/styles.css";
+import { Button } from "useintkit";
 
 <Button onClick={handleContinue}>Continue</Button>
 <Button loading>Continue</Button>
@@ -56,7 +56,7 @@ export default function Home() {
               <span aria-hidden="true">—</span>
               <a href="https://x.com/armondme" target="_blank" rel="noreferrer" className="inline-flex min-h-8 items-center transition-colors hover:text-neutral-800 dark:hover:text-neutral-200">Twitter</a>
               <span aria-hidden="true">—</span>
-              <a href={packageUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-8 items-center transition-colors hover:text-neutral-800 dark:hover:text-neutral-200" aria-label={`${packageInfo.name} ${packageInfo.version} on npm`} title={`Version ${packageInfo.version} · not yet published`}>{packageInfo.version}</a>
+              <a href={packageUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-8 items-center transition-colors hover:text-neutral-800 dark:hover:text-neutral-200" aria-label={`${packageInfo.name} ${packageInfo.version} on npm`} title={`Version ${packageInfo.version} · awaiting npm approval`}>{packageInfo.version}</a>
             </div>
           </nav>
 
@@ -73,8 +73,8 @@ export default function Home() {
 
             <section aria-labelledby="installation">
               <h2 id="installation" className="mb-1 scroll-mt-8 font-medium">Installation</h2>
-              <p>The package is being prepared for its first npm release.</p>
-              <p className="mt-2 w-fit bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-xs text-transparent dark:from-red-400 dark:to-orange-300">Version {packageInfo.version} is not published yet. This command will work once the package is available on npm.</p>
+              <p>Install InteractionKit from npm once its first release is approved.</p>
+              <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">Version {packageInfo.version} is awaiting npm approval. The current npm package is a placeholder and does not yet contain the components.</p>
               <div className="mt-6"><DocumentationCodeBlock code={installation} title="terminal" terminal /></div>
             </section>
 
