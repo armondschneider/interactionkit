@@ -4,7 +4,11 @@
 
 InteractionKit is becoming a React component package for web apps that feel native and fluid. The original copy-ready interaction studies remain available in the archive while we prepare the 2.0 components.
 
-The npm package is named **`intkit`**; the project and website remain InteractionKit.
+The npm package is named **[`useintkit`](https://www.npmjs.com/package/useintkit)**; the project and website remain InteractionKit.
+
+```bash
+npm install useintkit
+```
 
 The package, demo collection, and documentation UI have separate source boundaries. Moving a prototype into the package is a deliberate step, not an automatic export.
 
@@ -67,8 +71,8 @@ Components should be self-contained, responsive, keyboard-accessible, and respec
 The new package components are `Button`, `ImageViewer`, and `Sheet`, all with standalone styles and reduced-motion support. Button supplies a white/near-black primary surface, layered shadows, spring press feedback, and loading/disabled states. ImageViewer and Sheet support controlled state, native modal focus containment, focus restoration, and scroll locking. The website's four-image grid is an example built with ImageViewer, not a required package layout. Sheet provides a scrollable body, fixed footer, and handle-only drag dismissal.
 
 ```tsx
-import "intkit/styles.css";
-import { ImageViewer } from "intkit";
+import "useintkit/styles.css";
+import { ImageViewer } from "useintkit";
 
 <ImageViewer src="/images/coast.jpg" alt="A quiet coastline" />
 ```
@@ -89,9 +93,9 @@ See the component READMEs in `src/components/button`, `src/components/image-view
 
 The package exports only `Button`, `ImageViewer`, and `Sheet`. Legacy FeedbackMorph and notification implementations are website-only and live in `app/_components`, using the website's Tailwind styling.
 
-The build preserves the client boundary, keeps React and Motion external, and emits separate ESM and CommonJS entry points. The package is **unpublished**, with the initial version set to `0.0.0` (`major.minor.patch`). Publishing is on hold while the npm name is being reviewed. The current `intkit` name is provisional; future work includes migrating the remaining components to the standalone styling approach.
+The build preserves the client boundary, keeps React and Motion external, and emits separate ESM and CommonJS entry points. The initial published version is `0.0.0` (`major.minor.patch`); future work includes migrating the remaining components to the standalone styling approach.
 
-### First npm release
+### npm releases
 
 The package name and version live in `lib-package.json`. The website reads that version and links to the matching npm package page. The root `package.json` is private and belongs to the website/build tooling, not the published package.
 
@@ -100,7 +104,9 @@ The package name and version live in `lib-package.json`. The website reads that 
 3. Run `npm run pack:lib` and inspect the files. It builds and validates the package but does not publish it.
 4. When ready, run `npm run publish:lib`. For a preview release, use `npm run publish:lib -- --tag next` so it does not become the default `latest` release.
 
-Publishing runs the tests and library checks first. The distributable includes its stylesheet, declarations, README, and MIT license, and is configured as a public package on the npm registry. The package page is only available after the first successful publication. Never commit npm tokens or put them in website environment variables.
+Publishing runs the tests and library checks first. The distributable includes its stylesheet, declarations, README, and MIT license, and is configured as a public package on the npm registry. If npm stages a release, a maintainer must approve it before it becomes available. Never commit npm tokens or put them in website environment variables.
+
+After publishing a version, push a matching Git tag (for example, `v0.0.0`) to create a GitHub release with generated notes. The release workflow checks the tag against `lib-package.json` and does not publish to npm.
 
 ## License
 

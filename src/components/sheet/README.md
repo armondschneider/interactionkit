@@ -3,8 +3,8 @@
 A modal bottom sheet for settings, forms, and focused actions. The package stylesheet works without a consumer Tailwind installation.
 
 ```tsx
-import "intkit/styles.css";
-import { Sheet } from "intkit";
+import "useintkit/styles.css";
+import { Sheet } from "useintkit";
 
 <Sheet trigger="Open preferences" title="Preferences" description="Make it your own.">
   {/* Your controls or form */}

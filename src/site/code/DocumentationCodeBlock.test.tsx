@@ -25,10 +25,10 @@ describe("DocumentationCodeBlock", () => {
   });
 
   it("highlights JSX and strings while preserving whitespace and copy content", () => {
-    const code = 'import { Sheet } from "intkit";\n\n<Sheet title="Hello" />';
+    const code = 'import { Sheet } from "useintkit";\n\n<Sheet title="Hello" />';
     const { container } = render(<DocumentationCodeBlock title="example.tsx" code={code} />);
     expect(container.querySelector("code")?.textContent).toBe(code);
-    expect(screen.getByText('"intkit"')).toHaveClass("text-emerald-700", "dark:text-emerald-400");
+    expect(screen.getByText('"useintkit"')).toHaveClass("text-emerald-700", "dark:text-emerald-400");
     expect(screen.getAllByText("Sheet")[0]).toHaveClass("text-blue-700", "dark:text-blue-400");
   });
 

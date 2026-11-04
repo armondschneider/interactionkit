@@ -3,8 +3,8 @@
 A framework-independent React image viewer. Import the package stylesheet once in your app; no Tailwind installation is needed.
 
 ```tsx
-import "intkit/styles.css";
-import { ImageViewer } from "intkit";
+import "useintkit/styles.css";
+import { ImageViewer } from "useintkit";
 
 <ImageViewer
   src="/photos/coast.jpg"

@@ -17,9 +17,9 @@ describe("homepage package metadata", () => {
     expect(link).toHaveAttribute("target", "_blank");
   });
 
-  it("makes the unpublished status clear and derives the install command from the package name", () => {
+  it("shows installation instructions derived from the package name", () => {
     const { container } = render(<Home />);
-    expect(screen.getByText(`Version ${packageInfo.version} is not published yet. This command will work once the package is available on npm.`)).toBeInTheDocument();
+    expect(screen.getByText("Install InteractionKit from npm to get started.")).toBeInTheDocument();
     expect(container.querySelector("code")?.textContent).toBe(`pnpm add ${packageInfo.name}`);
   });
 });
