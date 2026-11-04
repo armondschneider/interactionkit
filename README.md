@@ -91,7 +91,7 @@ Add a `.dark` class on an ancestor to use the dark appearance. Customize compone
 
 See the component READMEs in `src/components/button`, `src/components/image-viewer`, and `src/components/sheet` for the APIs and available tokens. `npm run build:lib:watch` watches the component CSS as well as TypeScript.
 
-The package exports only `Button`, `ImageViewer`, and `Sheet`. Legacy FeedbackMorph and notification implementations are website-only and live in `app/_components`, using the website's Tailwind styling.
+The published package exports `Button`, `ImageViewer`, and `Sheet`. The source also includes an in-development [`VideoPlayer`](src/components/video-player/README.md) that is not yet published. Legacy FeedbackMorph and notification implementations are website-only and live in `app/_components`, using the website's Tailwind styling.
 
 The build preserves the client boundary, keeps React and Motion external, and emits separate ESM and CommonJS entry points. The initial published version is `0.0.0` (`major.minor.patch`); future work includes migrating the remaining components to the standalone styling approach.
 

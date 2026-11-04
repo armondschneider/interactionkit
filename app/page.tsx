@@ -8,6 +8,7 @@ import ImageGridModal from "../src/examples/image/ImageGridModal";
 import { imageGridImages } from "../src/examples/image/exampleImages";
 import SheetExample from "../src/examples/sheet/SheetExample";
 import ButtonExample from "../src/examples/button/ButtonExample";
+import VideoPlayer from "../src/components/video-player/VideoPlayer";
 import packageInfo from "../lib-package.json";
 
 const packageUrl = `https://www.npmjs.com/package/${packageInfo.name}`;
@@ -96,6 +97,12 @@ export default function Home() {
               <p>A focused surface for settings, forms, and small decisions. Drag the handle to dismiss it, or use the keyboard. Content scrolls independently of the gesture.</p>
               <div className="mt-6 flex h-[220px] items-center justify-center rounded-lg border border-neutral-200/80 bg-neutral-50/70 px-5 dark:border-neutral-800 dark:bg-neutral-900/40"><SheetExample /></div>
               <div className="mt-6"><DocumentationCodeBlock code={sheetUsage} title="sheet.tsx" /></div>
+            </section>
+
+            <section aria-labelledby="video-player">
+              <h2 id="video-player" className="mb-1 font-medium">Video player <span className="text-xs font-normal text-neutral-500 dark:text-neutral-400">· in development</span></h2>
+              <p>Custom controls for direct video, with native embeds for YouTube and Vimeo. This component is not yet available in the published package.</p>
+              <div className="mt-6"><VideoPlayer src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" title="A bee on a flower" /></div>
             </section>
 
             <section aria-labelledby="archive">
