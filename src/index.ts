@@ -4,3 +4,5 @@ export { default as Sheet } from "./components/sheet/Sheet";
 export type { SheetProps } from "./components/sheet/Sheet";
 export { default as Button } from "./components/button/Button";
 export type { ButtonProps } from "./components/button/Button";
+export { default as VideoPlayer } from "./components/video-player/VideoPlayer";
+export type { VideoPlayerProps } from "./components/video-player/VideoPlayer";
