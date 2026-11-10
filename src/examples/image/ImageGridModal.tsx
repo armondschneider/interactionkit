@@ -1,6 +1,6 @@
 "use client";
 
-import ImageViewer from "../../components/image-viewer/ImageViewer";
+import ImageGallery from "../../components/image-viewer/ImageGallery";
 
 type ImageItem = {
   src: string;
@@ -13,18 +13,5 @@ type Props = {
 };
 
 export default function ImageGridModal({ images, className = "" }: Props) {
-  return (
-    <div className={`grid w-full max-w-[390px] grid-cols-2 gap-2 sm:gap-3 ${className}`}>
-      {images.map((image) => (
-        <div key={image.src}>
-          <ImageViewer
-            src={image.src}
-            alt={image.alt}
-            className="!aspect-square"
-            loading="eager"
-          />
-        </div>
-      ))}
-    </div>
-  );
+  return <ImageGallery images={images} className={`!max-w-[390px] ${className}`} loading="eager" />;
 }

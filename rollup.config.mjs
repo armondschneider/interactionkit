@@ -31,6 +31,7 @@ export default [
       cssModules(),
       typescript({
         tsconfig: './tsconfig.lib.json',
+        include: ['src/**/*.ts', 'src/**/*.tsx'],
         outputToFilesystem: true,
       }),
     ],

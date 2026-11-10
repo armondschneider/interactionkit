@@ -50,7 +50,7 @@ Use this skill for every visual or interaction change in InteractionKit. Preserv
 ## Typography And Visual Design
 
 - Use the site sans-serif face for interface copy. Reserve alternate type treatments for deliberate editorial content only.
-- Keep headings balanced and body text readable without arbitrary tracking or excessive small text.
+- Keep headings balanced and body text readable. Preserve the font's default letter spacing; do not add tracking or letter-spacing overrides unless explicitly requested.
 - Underlined links need a visible underline offset and a distinct hover/focus color.
 - Maintain a consistent spacing scale, nested corner-radius relationship, border contrast, and shadow direction.
 - Prefer neutral, translucent border and shadow colors over pure black shadows.

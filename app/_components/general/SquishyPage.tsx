@@ -3,7 +3,8 @@
 import { Volume2, VolumeX } from "lucide-react";
 import { useState } from "react";
 import CodeBlock from "../code/CodeBlock";
-import { SpringLinkButton } from "./SpringButton";
+import Link from "next/link";
+import ArchiveShell from "../../../src/site/ArchiveShell";
 import DetachableBrowserToolbar from "./DetachableBrowserToolbar";
 import SquishyButton from "./SquishyButton";
 
@@ -16,14 +17,12 @@ export default function SquishyPage({ source, toolbarSource }: Props) {
   const [soundEnabled, setSoundEnabled] = useState(true);
 
   return (
-    <main className="min-h-screen bg-neutral-50 px-5 py-2 text-neutral-800 sm:px-8 sm:py-10 dark:bg-[#171716] dark:text-neutral-100">
-      <nav className="mx-auto flex h-14 w-full max-w-2xl items-center" aria-label="Demo navigation">
-        <SpringLinkButton href="/archive">Back to Archive</SpringLinkButton>
-      </nav>
+    <ArchiveShell>
+      <Link href="/archive" className="inline-flex min-h-8 items-center text-xs text-neutral-500 underline decoration-neutral-300 underline-offset-4 hover:text-neutral-900 dark:text-neutral-400 dark:decoration-neutral-700 dark:hover:text-neutral-100">Back to old interactions</Link>
 
-      <div className="mx-auto w-full max-w-2xl">
-        <header className="mb-12 pt-8">
-          <h1 className="text-xl font-medium">Squishy button</h1>
+      <div>
+        <header className="mb-8 mt-8">
+          <h1 className="font-medium">Squishy button</h1>
           <p className="mt-2 max-w-xl text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
             A small press-and-hold button with a little give and a soft sound.
           </p>
@@ -89,10 +88,7 @@ export default function SquishyPage({ source, toolbarSource }: Props) {
           </div>
         </section>
 
-        <footer className="border-t border-neutral-200 py-6 pb-16 text-[11px] text-neutral-400 dark:border-neutral-800">
-          Made by <a href="https://armond.me" className="underline transition-colors duration-150 hover:text-neutral-800 dark:hover:text-neutral-200">Armond Schneider</a>
-        </footer>
       </div>
-    </main>
+    </ArchiveShell>
   );
 }

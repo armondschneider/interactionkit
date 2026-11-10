@@ -26,7 +26,7 @@ The package, demo collection, and documentation UI have separate source boundari
 app/                 Landing page and individual demo routes
 app/archive/         Original interaction gallery
 src/components/      Package components and their colocated tests
-src/examples/        Current Button, ImageViewer, and Sheet examples
+src/examples/        Current package component examples
 app/_components/     Website-only gallery interactions and legacy page helpers
 src/site/            Documentation UI used only by the website
 src/test/            Shared test setup and package-boundary checks
@@ -68,7 +68,7 @@ Components should be self-contained, responsive, keyboard-accessible, and respec
 
 ### Package readiness
 
-The new package components are `Button`, `ImageViewer`, and `Sheet`, all with standalone styles and reduced-motion support. Button supplies a white/near-black primary surface, layered shadows, spring press feedback, and loading/disabled states. ImageViewer and Sheet support controlled state, native modal focus containment, focus restoration, and scroll locking. The website's four-image grid is an example built with ImageViewer, not a required package layout. Sheet provides a scrollable body, fixed footer, and handle-only drag dismissal.
+The package source includes `Button`, `ImageViewer`, `ImageGallery`, `Sheet`, `VideoPlayer`, and `ViewTransition`, with standalone styles. Button supplies a primary surface, layered shadows, spring press feedback, and loading/disabled states. ImageViewer and Sheet support controlled state, native modal focus containment, focus restoration, and scroll locking. ImageGallery arranges one to four independent image viewers. Sheet provides a scrollable body, fixed footer, and handle-only drag dismissal. ViewTransition provides a non-modal expanding disclosure, and VideoPlayer supports direct media and provider embeds.
 
 ```tsx
 import "useintkit/styles.css";
@@ -89,17 +89,17 @@ Add a `.dark` class on an ancestor to use the dark appearance. Customize compone
 }
 ```
 
-See the component READMEs in `src/components/button`, `src/components/image-viewer`, and `src/components/sheet` for the APIs and available tokens. `npm run build:lib:watch` watches the component CSS as well as TypeScript.
+See the component READMEs in `src/components/button`, `src/components/image-viewer`, `src/components/sheet`, `src/components/video-player`, and `src/components/view-transition` for the APIs and available tokens. `npm run build:lib:watch` watches the component CSS as well as TypeScript.
 
-The published package exports `Button`, `ImageViewer`, and `Sheet`. The source also includes an in-development [`VideoPlayer`](src/components/video-player/README.md) that is not yet published. Legacy FeedbackMorph and notification implementations are website-only and live in `app/_components`, using the website's Tailwind styling.
+The `useintkit@0.0.1` release includes `Button`, `ImageViewer`, `ImageGallery`, `Sheet`, [`VideoPlayer`](https://github.com/armondschneider/interactionkit/blob/main/src/components/video-player/README.md), and [`ViewTransition`](https://github.com/armondschneider/interactionkit/blob/main/src/components/view-transition/README.md). ViewTransition is a non-modal expanding disclosure; the blog's image-card, drag-to-close, and inline note experiments are not package components. Legacy FeedbackMorph and notification implementations are website-only and live in `app/_components`, using the website's Tailwind styling.
 
-The build preserves the client boundary, keeps React and Motion external, and emits separate ESM and CommonJS entry points. The initial published version is `0.0.0` (`major.minor.patch`); future work includes migrating the remaining components to the standalone styling approach.
+The build preserves the client boundary, keeps React and Motion external, and emits separate ESM and CommonJS entry points. Future work includes migrating the remaining components to the standalone styling approach.
 
 ### npm releases
 
-The package name and version live in `lib-package.json`. The website reads that version and links to the matching npm package page. The root `package.json` is private and belongs to the website/build tooling, not the published package.
+The package name and release version live in `lib-package.json`. The website navigation fetches the latest published version from npm, falling back to an npm link when the registry is unavailable. The root `package.json` is private and belongs to the website/build tooling, not the published package.
 
-1. Confirm the package name, npm name availability, and initial release version in `lib-package.json`. Prefer a prerelease version while the API is evolving.
+1. Choose a new version in `lib-package.json`; npm will not accept a version that has already been published. Prefer a prerelease version while the API is evolving.
 2. Run `npm login`, then `npm whoami` to verify the account.
 3. Run `npm run pack:lib` and inspect the files. It builds and validates the package but does not publish it.
 4. When ready, run `npm run publish:lib`. For a preview release, use `npm run publish:lib -- --tag next` so it does not become the default `latest` release.

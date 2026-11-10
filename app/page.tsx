@@ -3,15 +3,16 @@
 import { Analytics } from "@vercel/analytics/next";
 import { Moon, Sun } from "lucide-react";
 import { useState } from "react";
+import Link from "next/link";
+import DeadIcon from "../src/site/DeadIcon";
 import DocumentationCodeBlock from "../src/site/code/DocumentationCodeBlock";
 import ImageGridModal from "../src/examples/image/ImageGridModal";
 import { imageGridImages } from "../src/examples/image/exampleImages";
 import SheetExample from "../src/examples/sheet/SheetExample";
 import ButtonExample from "../src/examples/button/ButtonExample";
-import VideoPlayer from "../src/components/video-player/VideoPlayer";
 import packageInfo from "../lib-package.json";
+import PublishedVersion from "../src/site/PublishedVersion";
 
-const packageUrl = `https://www.npmjs.com/package/${packageInfo.name}`;
 const installation = `pnpm add ${packageInfo.name}`;
 const usage = `import "useintkit/styles.css";
 import { ImageViewer } from "useintkit";
@@ -55,9 +56,11 @@ export default function Home() {
             <div className="flex items-center gap-3 text-xs text-neutral-400 sm:text-sm dark:text-neutral-500">
               <a href="https://github.com/armondschneider/interactionkit" target="_blank" rel="noreferrer" className="inline-flex min-h-8 items-center transition-colors hover:text-neutral-800 dark:hover:text-neutral-200">GitHub</a>
               <span aria-hidden="true">—</span>
+              <Link href="/docs" className="inline-flex min-h-8 items-center transition-colors hover:text-neutral-800 dark:hover:text-neutral-200">Docs</Link>
+              <span aria-hidden="true">—</span>
               <a href="https://x.com/armondme" target="_blank" rel="noreferrer" className="inline-flex min-h-8 items-center transition-colors hover:text-neutral-800 dark:hover:text-neutral-200">Twitter</a>
               <span aria-hidden="true">—</span>
-              <a href={packageUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-8 items-center transition-colors hover:text-neutral-800 dark:hover:text-neutral-200" aria-label={`${packageInfo.name} ${packageInfo.version} on npm`} title={`Version ${packageInfo.version} on npm`}>{packageInfo.version}</a>
+              <PublishedVersion />
             </div>
           </nav>
 
@@ -70,6 +73,7 @@ export default function Home() {
               <h2 id="introduction" className="mb-1 font-medium">Introduction</h2>
               <p>InteractionKit is a kit of React components that make your web apps feel more native and fluid. For SaaS products, consumer apps, and everything in between.</p>
               <p className="mt-3 text-neutral-500 dark:text-neutral-400">Natural gestures, smooth transitions, and responsive feedback, without building every interaction from scratch. Built with React and Motion to fit into your existing UI.</p>
+              <Link href="/docs/components" className="mt-3 inline-flex min-h-8 items-center text-neutral-500 underline decoration-neutral-300 underline-offset-4 hover:text-neutral-900 dark:text-neutral-400 dark:decoration-neutral-700 dark:hover:text-neutral-100">See component documentation</Link>
             </section>
 
             <section aria-labelledby="installation">
@@ -99,22 +103,12 @@ export default function Home() {
               <div className="mt-6"><DocumentationCodeBlock code={sheetUsage} title="sheet.tsx" /></div>
             </section>
 
-            <section aria-labelledby="video-player">
-              <h2 id="video-player" className="mb-1 font-medium">Video player <span className="text-xs font-normal text-neutral-500 dark:text-neutral-400">· in development</span></h2>
-              <p>Custom controls for direct video, with native embeds for YouTube and Vimeo. This component is not yet available in the published package.</p>
-              <div className="mt-6"><VideoPlayer src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" title="A bee on a flower" /></div>
-            </section>
-
-            <section aria-labelledby="archive">
-              <h2 id="archive" className="mb-1 font-medium">The archive</h2>
-              <p>The original collection isn’t going anywhere. Explore the interaction studies, try the examples, and use their source in your own projects.</p>
-              <a href="/archive" className="mt-3 inline-flex min-h-8 items-center text-neutral-500 underline decoration-neutral-300 underline-offset-4 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:decoration-neutral-700 dark:hover:text-neutral-100">Browse the original interactions</a>
-            </section>
           </div>
 
-          <footer className="mt-14 flex items-center justify-between gap-4 border-t border-neutral-200/80 pt-5 text-xs text-neutral-400 dark:border-neutral-800 dark:text-neutral-500">
+          <footer className="mt-14 grid grid-cols-[1fr_auto_1fr] items-center gap-2 border-t border-neutral-200/80 pt-5 text-xs text-neutral-400 dark:border-neutral-800 dark:text-neutral-500">
             <span>Made by <a href="https://armond.me" className="underline underline-offset-4 hover:text-neutral-800 dark:hover:text-neutral-200">Armond Schneider</a></span>
-            <button type="button" className="grid size-8 cursor-pointer place-items-center rounded-md transition-colors hover:bg-neutral-100 hover:text-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-200 dark:focus-visible:outline-neutral-500" onClick={() => setDimmed((value) => !value)} aria-label="Toggle display" aria-pressed={dimmed}>
+            <Link href="/archive" className="inline-flex min-h-8 items-center gap-1.5 whitespace-nowrap transition-colors hover:text-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-400 dark:hover:text-neutral-200"><DeadIcon />Old Interactions</Link>
+            <button type="button" className="ml-auto grid size-8 cursor-pointer place-items-center rounded-md transition-colors hover:bg-neutral-100 hover:text-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-200 dark:focus-visible:outline-neutral-500" onClick={() => setDimmed((value) => !value)} aria-label="Toggle display" aria-pressed={dimmed}>
               {dimmed ? <Sun size={14} /> : <Moon size={14} />}
             </button>
           </footer>

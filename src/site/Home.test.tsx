@@ -9,10 +9,9 @@ vi.mock("../examples/sheet/SheetExample", () => ({ default: () => null }));
 vi.mock("../examples/button/ButtonExample", () => ({ default: () => null }));
 
 describe("homepage package metadata", () => {
-  it("links the manifest version to the npm package page", () => {
+  it("links to the npm package page", () => {
     render(<Home />);
-    const link = screen.getByRole("link", { name: `${packageInfo.name} ${packageInfo.version} on npm` });
-    expect(link).toHaveTextContent(packageInfo.version);
+    const link = screen.getByRole("link", { name: `${packageInfo.name} on npm` });
     expect(link).toHaveAttribute("href", `https://www.npmjs.com/package/${packageInfo.name}`);
     expect(link).toHaveAttribute("target", "_blank");
   });
@@ -21,5 +20,16 @@ describe("homepage package metadata", () => {
     const { container } = render(<Home />);
     expect(screen.getByText("Install InteractionKit from npm to get started.")).toBeInTheDocument();
     expect(container.querySelector("code")?.textContent).toBe(`pnpm add ${packageInfo.name}`);
+  });
+
+  it("links to component documentation and the old interactions", () => {
+    render(<Home />);
+    expect(screen.getByRole("link", { name: "See component documentation" })).toHaveAttribute("href", "/docs/components");
+    expect(screen.getByRole("link", { name: "Old Interactions" })).toHaveAttribute("href", "/archive");
+  });
+
+  it("keeps the video demo off the homepage", () => {
+    render(<Home />);
+    expect(screen.queryByRole("heading", { name: /video player/i })).not.toBeInTheDocument();
   });
 });

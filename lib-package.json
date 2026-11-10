@@ -1,6 +1,6 @@
 {
   "name": "useintkit",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "React interaction components for web apps that feel native and fluid",
   "type": "module",
   "main": "./index.cjs",
@@ -32,6 +32,7 @@
     "url": "git+https://github.com/armondschneider/interactionkit.git"
   },
   "dependencies": {
+    "@vimeo/player": "^2.30.4",
     "lucide-react": "^0.554.0"
   },
   "peerDependencies": {

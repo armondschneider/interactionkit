@@ -5,9 +5,11 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const expected = [
   'ImageViewer',
+  'ImageGallery',
   'Sheet',
   'Button',
   'VideoPlayer',
+  'ViewTransition',
 ].sort();
 
 for (const filename of ['index.js', 'index.cjs']) {
@@ -23,7 +25,7 @@ const cjs = require('../dist/index.cjs');
 assert.deepEqual(Object.keys(esm).sort(), expected, 'ESM exports must match the public API');
 assert.deepEqual(Object.keys(cjs).sort(), expected, 'CommonJS exports must match the public API');
 const styles = readFileSync(new URL('../dist/styles.css', import.meta.url), 'utf8');
-for (const component of ['button', 'sheet', 'image-viewer', 'video-player', 'internal']) {
+for (const component of ['button', 'sheet', 'image-viewer', 'video-player', 'view-transition', 'internal']) {
   assert.ok(styles.includes(`.ik_${component}_`), `Package styles must include scoped ${component} CSS`);
 }
 assert.doesNotMatch(styles, /box-sizing:border-box;border:0 solid/);

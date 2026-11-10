@@ -4,7 +4,7 @@ import TextHighlight from "../../_components/highlight/TextHighlight";
 export default function TextHighlightDemoPage() {
   return (
     <OpenDemoPage title="Text highlight" description="A hand-drawn highlight that reveals a related image on hover." sourcePath="app/_components/highlight/TextHighlight.tsx" previewClassName="items-start pt-24">
-      <div className="max-w-xl space-y-8 text-base leading-relaxed text-neutral-800">
+      <div className="max-w-xl space-y-8 text-base leading-relaxed text-neutral-800 dark:text-neutral-200">
         <p>
           The view across{" "}
           <TextHighlight

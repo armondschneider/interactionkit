@@ -1,8 +1,12 @@
 export { default as ImageViewer } from "./components/image-viewer/ImageViewer";
 export type { ImageViewerProps } from "./components/image-viewer/ImageViewer";
+export { default as ImageGallery } from "./components/image-viewer/ImageGallery";
+export type { ImageGalleryItem, ImageGalleryProps } from "./components/image-viewer/ImageGallery";
 export { default as Sheet } from "./components/sheet/Sheet";
 export type { SheetProps } from "./components/sheet/Sheet";
 export { default as Button } from "./components/button/Button";
 export type { ButtonProps } from "./components/button/Button";
 export { default as VideoPlayer } from "./components/video-player/VideoPlayer";
 export type { VideoPlayerProps } from "./components/video-player/VideoPlayer";
+export { default as ViewTransition } from "./components/view-transition/ViewTransition";
+export type { ViewTransitionProps, ViewTransitionSpring, ViewTransitionSize } from "./components/view-transition/ViewTransition";
