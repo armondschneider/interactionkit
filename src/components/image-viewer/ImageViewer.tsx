@@ -2,8 +2,9 @@
 
 import { AnimatePresence, LayoutGroup, animate, motion, useMotionValue, useReducedMotion } from "framer-motion";
 import { X } from "lucide-react";
-import { useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { useId, useRef, useState, type ReactNode } from "react";
 import { useModalLifecycle } from "../internal/useModalLifecycle";
+import { useIsomorphicLayoutEffect } from "../internal/useIsomorphicLayoutEffect";
 import { shouldDismissImage } from "./drag";
 import primitives from "../internal/primitives.module.css";
 import styles from "./styles.module.css";
@@ -64,7 +65,7 @@ export default function ImageViewer({
     if (image.naturalWidth && image.naturalHeight) setRatio(image.naturalWidth / image.naturalHeight);
   }
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (open) {
       if (thumbnailRef.current) updateRatio(thumbnailRef.current);
       setFailed(false);
@@ -139,7 +140,7 @@ export default function ImageViewer({
                     layout={!reducedMotion}
                     layoutId={reducedMotion ? undefined : "image"}
                     transition={transition}
-                    style={{ aspectRatio: ratio, width: `min(88vw, 760px, ${ratio * 75}dvh)` }}
+                    style={{ aspectRatio: ratio, width: `min(100vw, var(--ik-image-viewport-width, 88vw), var(--ik-image-max-width, 760px), calc(min(100dvh, var(--ik-image-max-height, 75dvh)) * ${ratio}))` }}
                     className={`${styles.content} ${contentClassName}`}
                   >
                     {failed ? (

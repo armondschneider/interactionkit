@@ -1,7 +1,8 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState, type RefObject } from "react";
+import { useRef, useState, type RefObject } from "react";
 import { useModalScrollLock } from "./useModalScrollLock";
+import { useIsomorphicLayoutEffect } from "./useIsomorphicLayoutEffect";
 
 type Options = {
   open: boolean;
@@ -23,7 +24,7 @@ export function useModalLifecycle({ open, initialFocusRef, returnFocusRef, onExi
 
   useModalScrollLock(active);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (open) {
       if (!dialogRef.current?.open) {
         previousFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
@@ -35,11 +36,11 @@ export function useModalLifecycle({ open, initialFocusRef, returnFocusRef, onExi
     } else setPresent(false);
   }, [open]);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (present && open) initialFocusRef.current?.focus({ preventScroll: true });
   }, [present, open, initialFocusRef]);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const dialog = dialogRef.current;
     return () => { if (dialog?.open) dialog.close(); };
   }, []);

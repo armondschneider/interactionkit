@@ -1,12 +1,12 @@
 "use client";
 
-import { useLayoutEffect } from "react";
+import { useIsomorphicLayoutEffect } from "./useIsomorphicLayoutEffect";
 
 type ScrollLock = { count: number; overflow: string; paddingRight: string };
 const locks = new WeakMap<Document, ScrollLock>();
 
 export function useModalScrollLock(active: boolean) {
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!active) return;
     const existing = locks.get(document);
     if (existing) existing.count += 1;

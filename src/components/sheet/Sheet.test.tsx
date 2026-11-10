@@ -46,9 +46,11 @@ describe("Sheet", () => {
     render(<Sheet title="Preferences" />);
     const { trigger, dialog } = openSheet();
     fireEvent.click(screen.getByRole("button", { name: "Close sheet" }));
-    await waitFor(() => expect(dialog).not.toHaveAttribute("open"));
-    expect(trigger).toHaveFocus();
-    expect(document.body.style.overflow).toBe(previous);
+    await waitFor(() => {
+      expect(dialog).not.toHaveAttribute("open");
+      expect(trigger).toHaveFocus();
+      expect(document.body.style.overflow).toBe(previous);
+    });
   });
 
   it("dismisses on native Escape cancellation", async () => {

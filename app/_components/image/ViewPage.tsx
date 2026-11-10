@@ -4,7 +4,8 @@ import CodeBlock from "../code/CodeBlock";
 import ImageModal from "./ImageModal";
 import ImageGridRearrange from "./ImageGridRearrange";
 import ImageGridModal from "../../../src/examples/image/ImageGridModal";
-import { SpringLinkButton } from "../general/SpringButton";
+import Link from "next/link";
+import ArchiveShell from "../../../src/site/ArchiveShell";
 import { imageGridImages as images } from "../../../src/examples/image/exampleImages";
 
 type Props = {
@@ -38,15 +39,13 @@ function Example({ title, description, children, source, sourceTitle, topAligned
 
 export default function ViewPage({ modalSource, stackSource, gallerySource }: Props) {
   return (
-    <main className="min-h-screen bg-neutral-50 px-5 py-2 text-neutral-800 sm:px-8 sm:py-10">
-      <nav className="mx-auto flex h-14 w-full max-w-2xl items-center" aria-label="Demo navigation">
-        <SpringLinkButton href="/archive">Back to Archive</SpringLinkButton>
-      </nav>
+    <ArchiveShell>
+      <Link href="/archive" className="inline-flex min-h-8 items-center text-xs text-neutral-500 underline decoration-neutral-300 underline-offset-4 hover:text-neutral-900 dark:text-neutral-400 dark:decoration-neutral-700 dark:hover:text-neutral-100">Back to old interactions</Link>
 
-      <div className="mx-auto w-full max-w-2xl">
-        <header className="mb-12 pt-8">
-          <h1 className="text-xl font-medium">Image view transitions</h1>
-          <p className="mt-2 max-w-xl text-sm leading-relaxed text-neutral-600">A closer look at keeping images connected as they move between states, using shared layout animations and simple spatial transitions.</p>
+      <div>
+        <header className="mb-8 mt-8">
+          <h1 className="font-medium">Image view transitions</h1>
+          <p className="mt-2 text-neutral-500 dark:text-neutral-400">A closer look at keeping images connected as they move between states, using shared layout animations and simple spatial transitions.</p>
         </header>
 
         <section aria-label="Image view transition examples">
@@ -61,10 +60,7 @@ export default function ViewPage({ modalSource, stackSource, gallerySource }: Pr
           </Example>
         </section>
 
-        <footer className="border-t border-neutral-200 py-6 pb-16 text-[11px] text-neutral-400 dark:border-neutral-800">
-          Made by <a href="https://armond.me" className="underline transition-colors duration-150 hover:text-neutral-800 dark:hover:text-neutral-200">Armond Schneider</a>
-        </footer>
       </div>
-    </main>
+    </ArchiveShell>
   );
 }
