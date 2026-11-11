@@ -8,6 +8,7 @@ import CardTransition from "../../src/site/view-transition/CardTransition";
 import TransitionTimeline from "../../src/site/view-transition/TransitionTimeline";
 import StudyTitle from "../../src/site/view-transition/StudyTitle";
 import NoteTransition from "../../src/site/view-transition/NoteTransition";
+import CopyAgentPrompt from "../../src/site/view-transition/CopyAgentPrompt";
 
 export const metadata: Metadata = { title: "View Transition | InteractionKit", description: "An interactive study of connected surfaces and shared motion." };
 
@@ -15,6 +16,7 @@ export default function ViewTransitionPage() {
   return <DocsShell hideNavigation><article>
     <StudyTitle />
     <p className="mt-4 max-w-[560px] leading-relaxed text-neutral-600 dark:text-neutral-400">What if a new surface felt like a continuation of the control that opened it?</p>
+    <CopyAgentPrompt />
     <div className="mt-8"><TransitionStudy /></div>
     <p className="mt-5 text-xs text-neutral-500 dark:text-neutral-400">Try opening and closing the surface. Press Escape to return to its trigger.</p>
 
